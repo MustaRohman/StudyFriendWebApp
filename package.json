@@ -7,13 +7,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MustaRohman/StudyFriend-api.git"
+    "url": "https://github.com/MustaRohman/StudyFriendAPI.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MustaRohman/StudyFriend-api/issues"
+    "url": "https://github.com/MustaRohman/StudyFriendAPI/issues"
   },
-  "homepage": "https://github.com/MustaRohman/StudyFriend-api#readme",
-  "description": ""
+  "homepage": "https://github.com/MustaRohman/StudyFriendAPI#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
 }
