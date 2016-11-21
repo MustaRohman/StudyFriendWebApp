@@ -1,5 +1,6 @@
-/* global ReactDOM b:true
-React*/
+const React = require('react');
+const ReactDOM = require('react-dom');
+
 
 const Greeter = React.createClass({
   render: function() {
