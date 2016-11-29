@@ -1,20 +1,15 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-
-
-const Greeter = React.createClass({
-  render: function() {
-    return (
-      <div>
-          <h1>This is a React App!</h1>
-          <p>Here is a p tag!</p>
-      </div>
-    );
-  }
-});
+import React from 'react';
+import ReactDOM from 'react-dom';
+const {Route, Router, IndexRoute, hashHistory, browserHistory} = require('react-router');
+import Main from 'Main';
+import Login from 'Login';
 
 
 ReactDOM.render(
-  <Greeter/>,
+  <Router history={browserHistory}>
+    <Route path="/" component={Main}>
+      <Route path="login" component={Login}/>
+    </Route>
+  </Router>,
   document.getElementById('app')
 );
