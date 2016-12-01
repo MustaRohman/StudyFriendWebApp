@@ -4,7 +4,7 @@
   "main": "server.js",
   "scripts": {
     "local": "nodemon server/server.js --exec babel-node",
-    "start": "babel server -d dist; node dist/server.js;",
+    "start": "babel server -d dist && node dist/server.js;",
     "test": "mocha"
   },
   "repository": {
