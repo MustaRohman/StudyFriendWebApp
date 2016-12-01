@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server/server.js --exec babel-node",
+    "local": "nodemon server/server.js --exec babel-node",
     "build": "babel server -d dist",
     "serve": "node dist/server.js",
     "test": "mocha"
