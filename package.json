@@ -22,6 +22,8 @@
   "description": "",
   "dependencies": {
     "babel-eslint": "^7.1.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-2": "^6.18.0",
     "body-parser": "^1.15.2",
     "eslint-plugin-react": "^6.7.1",
     "express": "^4.14.0",
