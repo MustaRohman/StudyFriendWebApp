@@ -4,7 +4,6 @@
   "main": "server.js",
   "scripts": {
     "local": "nodemon server/server.js --exec babel-node",
-    "build": "babel server -d dist",
     "start": "if [ $NODE_ENV=development ]; then echo development; nodemon server/server.js --exec babel-node; else echo production; babel server -d dist; node dist/server.js; fi",
     "test": "mocha"
   },
