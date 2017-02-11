@@ -5,7 +5,7 @@ const Main = React.createClass({
   render: function() {
     return (
       <div>
-          <h1>Main Component</h1>
+          <h1>StudyFriend</h1>
       </div>
     );
   }
