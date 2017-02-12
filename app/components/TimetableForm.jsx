@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Datepicker from 'Datepicker';
 
 const TimetableForm = React.createClass({
   getDefaultProps: function() {
@@ -23,6 +23,10 @@ const TimetableForm = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
+          <label>
+            Revision Start Date
+            <Datepicker/>
+          </label>
           <label>
             Name:
             <input type="text" value={this.state.value} onChange={this.handleChange} />
