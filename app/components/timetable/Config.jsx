@@ -19,12 +19,14 @@ const Config = React.createClass({
     };
   },
   handleChange: function() {
-    this.setState({
+    const updates = {
       name: this.refs.timetableName.value,
       session: this.refs.session.value,
       break: this.refs.break.value,
       reward: this.refs.reward.value
-    });
+    }
+    this.setState(updates);
+    this.props.onNewConfig(updates);
   },
   render: function() {
     return (
@@ -47,17 +49,17 @@ const Config = React.createClass({
         <label>
           Session:
           <input ref="session" type="range" min="30" max="60" step="5" value={this.state.session} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.session}/>
+          <input type="textarea" value={this.state.session} onChange={this.handleChange}/>
         </label>
         <label>
           Break:
           <input ref="break" type="range" min="10" max="30" step="5" value={this.state.break} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.break}/>
+          <input type="textarea" value={this.state.break} onChange={this.handleChange}/>
         </label>
         <label>
           Reward:
           <input ref="reward" type="range" min="30" max="90" step="5" value={this.state.reward} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.reward}/>
+          <input type="textarea" value={this.state.reward} onChange={this.handleChange}/>
         </label>
       </div>
     );

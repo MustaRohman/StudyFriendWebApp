@@ -1,7 +1,6 @@
 import React from 'react';
 import Config from 'Config';
 import AddSubject from 'AddSubject';
-import Datepicker from 'Datepicker';
 
 const TimetableForm = React.createClass({
   getDefaultProps: function() {
@@ -21,12 +20,18 @@ const TimetableForm = React.createClass({
    alert('A name was submitted: ' + this.state.value);
    event.preventDefault();
   },
+  handleConfig: function(updates) {
+    this.setState(updates);
+  },
+  handleAddSubject: function() {
+
+  },
   render: function() {
     return (
       <div>
         <h1>Create Timetable</h1>
         <form onSubmit={this.handleSubmit}>
-          <Config/>
+          <Config onNewConfig={this.handleConfig}/>
           <AddSubject/>
           <input type="submit" value="Submit" />
         </form>
