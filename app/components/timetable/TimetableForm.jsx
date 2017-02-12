@@ -1,4 +1,6 @@
 import React from 'react';
+import Config from 'Config';
+import AddSubject from 'AddSubject';
 import Datepicker from 'Datepicker';
 
 const TimetableForm = React.createClass({
@@ -9,7 +11,7 @@ const TimetableForm = React.createClass({
   },
   getInitialState: function() {
     return {
-      value: this.props.name
+      value: this.props.value
     };
   },
   handleChange(event) {
@@ -22,15 +24,10 @@ const TimetableForm = React.createClass({
   render: function() {
     return (
       <div>
+        <h1>Create Timetable</h1>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            Revision Start Date
-            <Datepicker/>
-          </label>
-          <label>
-            Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
+          <Config/>
+          <AddSubject/>
           <input type="submit" value="Submit" />
         </form>
       </div>

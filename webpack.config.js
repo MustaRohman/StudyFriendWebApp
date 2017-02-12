@@ -9,8 +9,10 @@ module.exports = {
     alias: {
       Main: 'app/components/Main.jsx',
       Login: 'app/components/Login.jsx',
-      TimetableForm: 'app/components/TimetableForm.jsx',
-      Datepicker: 'app/components/Datepicker.jsx'
+      TimetableForm: 'app/components/timetable/TimetableForm.jsx',
+      Datepicker: 'app/components/timetable/Datepicker.jsx',
+      Config: 'app/components/timetable/Config.jsx',
+      AddSubject: 'app/components/timetable/AddSubject.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
