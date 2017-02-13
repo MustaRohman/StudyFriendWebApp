@@ -1,10 +1,11 @@
 import React from 'react';
 import Datepicker from 'Datepicker';
 
+
 const Config = React.createClass({
   getDefaultProps: function() {
     return {
-      name: 'Timetable1',
+      name: 'NewTimetable',
       session: '45',
       break: '15',
       reward: '60'
@@ -37,29 +38,31 @@ const Config = React.createClass({
           <input type="text"  value={this.state.name} ref="timetableName" onChange={this.handleChange}/>
         </label>
         <h3>Dates</h3>
+        <div>
+          <label>
+            <p>Revision Start Date:</p>
+            <Datepicker onChange={this.handleChange}/>
+          </label>
+        </div>
         <label>
-          Revision Start Date:
-          <Datepicker/>
-        </label>
-        <label>
-          Exam Start Date:
-          <Datepicker/>
+          <p>Exam Start Date:</p>
+          <Datepicker onChange={this.handleChange}/>
         </label>
         <h3>Durations</h3>
         <label>
-          Session:
+          <p>Session:</p>
           <input ref="session" type="range" min="30" max="60" step="5" value={this.state.session} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.session} onChange={this.handleChange}/>
+          <input type="textarea" size="7" value={this.state.session} onChange={this.handleChange}/>
         </label>
         <label>
-          Break:
+          <p>Break:</p>
           <input ref="break" type="range" min="10" max="30" step="5" value={this.state.break} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.break} onChange={this.handleChange}/>
+          <input type="textarea" size="7"value={this.state.break} onChange={this.handleChange}/>
         </label>
         <label>
-          Reward:
+          <p>Reward:</p>
           <input ref="reward" type="range" min="30" max="90" step="5" value={this.state.reward} onChange={this.handleChange}/>
-          <input type="textarea" value={this.state.reward} onChange={this.handleChange}/>
+          <input type="textarea" size="7" value={this.state.reward} onChange={this.handleChange}/>
         </label>
       </div>
     );

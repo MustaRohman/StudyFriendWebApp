@@ -2,7 +2,7 @@ import React from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
-// require('react-datepicker/dist/react-datepicker.css');
+import './react-datepicker.css';
 
 const Datepicker = React.createClass({
   displayName: 'Example',
@@ -20,7 +20,12 @@ const Datepicker = React.createClass({
   },
 
   render: function() {
-    return <DatePicker selected={this.state.startDate} onChange={this.handleChange} />;
+    return <DatePicker
+      todayButton={"Today's Date"}
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+              dateFormat="YYYY/MM/DD"
+              showMonthDropdown />
   }
 });
 
