@@ -10,11 +10,13 @@ module.exports = {
     alias: {
       Main: 'app/components/Main.jsx',
       Login: 'app/components/Login.jsx',
-      TimetableForm: 'app/components/timetable/TimetableForm.jsx',
-      Datepicker: 'app/components/timetable/Datepicker.jsx',
-      Config: 'app/components/timetable/Config.jsx',
-      AddSubject: 'app/components/timetable/AddSubject.jsx',
-      TopicList: 'app/components/timetable/TopicList.jsx'
+      TimetableForm: 'app/components/timetable/TimetableForm/TimetableForm.jsx',
+      Datepicker: 'app/components/timetable/Datepicker/Datepicker.jsx',
+      Config: 'app/components/timetable/Config/Config.jsx',
+      AddSubject: 'app/components/timetable/AddSubject/AddSubject.jsx',
+      TopicList: 'app/components/timetable/TopicList/TopicList.jsx',
+      TopicInputField: 'app/components/timetable/TopicInputField/TopicInputField.jsx',
+      TopicListItem: 'app/components/timetable/TopicListItem/TopicListItem.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },

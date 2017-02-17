@@ -17,11 +17,6 @@ export default class TimetableForm extends Component {
       name: ''
     };
   }
-  componentWillMount() {
-    this.setState({
-      name: this.props.name,
-    });
-  }
   handleChange(event) {
     this.setState({value: event.target.value});
   }
