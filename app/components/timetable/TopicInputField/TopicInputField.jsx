@@ -19,6 +19,9 @@ export default class TopicInputField extends Component {
   }
   onAdd(event) {
     event.preventDefault();
+    if (!this.state.topicName || this.state.topicName == ' ') {
+      return;
+    }
     this.props.listChange(this.state.topicName);
   }
   render() {

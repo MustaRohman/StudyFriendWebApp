@@ -22,7 +22,7 @@ export default class TimetableForm extends Component {
   }
   handleSubmit(event) {
   //  alert('A name was submitted: ' + this.state.value);
-  //  event.preventDefault();
+    event.preventDefault();
   }
   handleConfig(updates) {
     this.setState(updates);
@@ -36,7 +36,7 @@ export default class TimetableForm extends Component {
     return (
         <div className={styles.app}>
           <h1>Create Timetable</h1>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={(event) => {this.handleSubmit(event);}}>
             <Config onNewConfig={this.handleConfig}/>
             <AddSubject/>
             <input type="submit" value="Create" />

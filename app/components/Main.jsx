@@ -1,14 +1,13 @@
 import React from 'react';
+import TimetableForm from 'TimetableForm';
 
+export default class Main extends React.Component {
 
-const Main = React.createClass({
-  render: function() {
+  render() {
     return (
       <div>
-          <h1>Main Component</h1>
+          <TimetableForm />
       </div>
     );
   }
-});
-
-module.exports = Main;
+}

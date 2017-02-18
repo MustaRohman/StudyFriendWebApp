@@ -2,6 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import TopicInputField from 'TopicInputField';
 import TopicListItem from 'TopicListItem';
 
+import Alert from 'react-s-alert';
+
 export default class TopicList extends Component {
   constructor(props) {
     super(props);
@@ -12,6 +14,12 @@ export default class TopicList extends Component {
   }
   handleListChange(item) {
     console.log(this.state);
+    function hasItem(name) {
+      return item === name;
+    }
+    if (this.state.topicList.some(hasItem)) {
+      return;
+    }
     const newList = this.state.topicList.slice();
     newList.push(item);
     this.setState({

@@ -12,6 +12,6 @@ ReactDOM.render(
   //     <Route path="login" component={Login}/>
   //   </Route>
   // </Router>,
-  <TimetableForm/>,
+  <Main/>,
   document.getElementById('app')
 );
