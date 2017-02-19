@@ -1,24 +1,20 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Datepicker from 'Datepicker';
 
 
 export default class Config extends React.Component {
-  getDefaultProps() {
-    return {
-      name: 'NewTimetable',
-      session: '45',
-      break: '15',
-      reward: '60'
-    }
+  static propTypes = {
+    onNewConfig: PropTypes.func.isRequired
   }
-  getInitialState() {
-    return {
-      name: this.props.name,
-      session: this.props.session,
-      break: this.props.break,
-      reward: this.props.reward
-    };
+  constructor(props) {
+    super(props);
   }
+  state = {
+    name: 'NewTimetable',
+    session: '45',
+    break: '15',
+    reward: '60'
+  };
   handleChange() {
     const updates = {
       name: this.refs.timetableName.value,

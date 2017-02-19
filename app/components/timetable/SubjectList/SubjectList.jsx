@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 export default class SubjectList extends React.Component {
-  constructor() {
-    super();
+  static propTypes = {
+  }
+  constructor(props) {
+    super(props);
   }
 
   state: {
@@ -11,6 +13,7 @@ export default class SubjectList extends React.Component {
   render() {
     return (
       <div>
+
       </div>
     );
   }

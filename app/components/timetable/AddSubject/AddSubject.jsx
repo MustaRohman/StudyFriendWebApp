@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import TopicList from 'TopicList';
 import SubjectList from 'app/components/timetable/SubjectList/SubjectList.jsx';
 
 export default class AddSubject extends React.Component {
+  static propTypes = {
+    addSubject: PropTypes.func.isRequired
+  }
   constructor(props) {
     super(props);
   }
@@ -32,12 +35,13 @@ export default class AddSubject extends React.Component {
   }
   handleAddSubject(event) {
     event.preventDefault();
+    this.props.addSubject(this.state)
   }
   render() {
     return (
       <div>
         <h2>Add Subjects</h2>
-        <SubjectList />
+        <SubjectList subject={this.state}/>
         <div>
           <label>
             <p>Subject Name:</p>

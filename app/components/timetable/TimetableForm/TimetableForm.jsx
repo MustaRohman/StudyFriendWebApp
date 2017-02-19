@@ -1,5 +1,5 @@
 import Config from 'Config';
-import AddSubject from 'AddSubject';
+import AddSubject from 'app/components/timetable/AddSubject/AddSubject.jsx';
 import React, { PropTypes, Component } from 'react';
 import styles from './timetableForm.css';
 
@@ -14,7 +14,8 @@ export default class TimetableForm extends Component {
     super(props);
 
     this.state = {
-      name: ''
+      name: '',
+      subjects: []
     };
   }
   handleChange(event) {
@@ -28,8 +29,13 @@ export default class TimetableForm extends Component {
     this.setState(updates);
   }
 
-  handleAddSubject() {
-
+  handleAddSubject(subject) {
+    const newSubjects = this.state.subjects.splice();
+    newSubjects.push(subject);
+    this.setState({
+      subjects: newSubjects
+    });
+    console.log(this.state.subjects);
   }
 
   render() {
@@ -38,7 +44,7 @@ export default class TimetableForm extends Component {
           <h1>Create Timetable</h1>
           <form onSubmit={(event) => {this.handleSubmit(event);}}>
             <Config onNewConfig={this.handleConfig}/>
-            <AddSubject/>
+            <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
             <input type="submit" value="Create" />
           </form>
         </div>
