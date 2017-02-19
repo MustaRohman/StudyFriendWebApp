@@ -5,6 +5,9 @@ import TopicListItem from 'TopicListItem';
 import Alert from 'react-s-alert';
 
 export default class TopicList extends Component {
+  static propTypes = {
+    addTopic: PropTypes.func.isRequired
+  }
   constructor(props) {
     super(props);
   }
@@ -13,7 +16,6 @@ export default class TopicList extends Component {
     topicList: []
   }
   handleListChange(item) {
-    console.log(this.state);
     function hasItem(name) {
       return item === name;
     }
@@ -25,6 +27,7 @@ export default class TopicList extends Component {
     this.setState({
       topicList: newList
     });
+    this.props.addTopic(newList);
   }
 
   handleItemDelete(item) {

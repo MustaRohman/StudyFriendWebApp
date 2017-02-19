@@ -2,24 +2,24 @@ import React from 'react';
 import Datepicker from 'Datepicker';
 
 
-const Config = React.createClass({
-  getDefaultProps: function() {
+export default class Config extends React.Component {
+  getDefaultProps() {
     return {
       name: 'NewTimetable',
       session: '45',
       break: '15',
       reward: '60'
     }
-  },
-  getInitialState: function() {
+  }
+  getInitialState() {
     return {
       name: this.props.name,
       session: this.props.session,
       break: this.props.break,
       reward: this.props.reward
     };
-  },
-  handleChange: function() {
+  }
+  handleChange() {
     const updates = {
       name: this.refs.timetableName.value,
       session: this.refs.session.value,
@@ -28,8 +28,8 @@ const Config = React.createClass({
     }
     this.setState(updates);
     this.props.onNewConfig(updates);
-  },
-  render: function() {
+  }
+  render() {
     return (
       <div>
         <h2>Configuration</h2>
@@ -67,6 +67,4 @@ const Config = React.createClass({
       </div>
     );
   }
-});
-
-module.exports = Config;
+}

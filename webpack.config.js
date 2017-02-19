@@ -16,7 +16,9 @@ module.exports = {
       AddSubject: 'app/components/timetable/AddSubject/AddSubject.jsx',
       TopicList: 'app/components/timetable/TopicList/TopicList.jsx',
       TopicInputField: 'app/components/timetable/TopicInputField/TopicInputField.jsx',
-      TopicListItem: 'app/components/timetable/TopicListItem/TopicListItem.jsx'
+      TopicListItem: 'app/components/timetable/TopicListItem/TopicListItem.jsx',
+      //
+      timetable: 'app/component/timetable'
     },
     extensions: ['', '.js', '.jsx']
   },
