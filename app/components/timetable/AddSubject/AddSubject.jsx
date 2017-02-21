@@ -35,13 +35,12 @@ export default class AddSubject extends React.Component {
   }
   handleAddSubject(event) {
     event.preventDefault();
-    this.props.addSubject(this.state)
+    this.props.addSubject(this.state);
   }
   render() {
     return (
       <div>
         <h2>Add Subjects</h2>
-        <SubjectList subject={this.state}/>
         <div>
           <label>
             <p>Subject Name:</p>
