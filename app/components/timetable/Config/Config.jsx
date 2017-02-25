@@ -21,7 +21,7 @@ export default class Config extends React.Component {
       session: this.refs.session.value,
       break: this.refs.break.value,
       reward: this.refs.reward.value
-    }
+    };
     this.setState(updates);
     this.props.onNewConfig(updates);
   }

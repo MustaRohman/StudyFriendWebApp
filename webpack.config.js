@@ -1,6 +1,11 @@
-
+const webpack = require('webpack');
+const path = require('path');
 module.exports = {
-  entry: './app/app.jsx',
+  entry: [
+    'webpack-hot-middleware/client',
+    'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
+    './app/app',
+  ],
   output: {
     path: __dirname,
     filename: './public/bundle.js'
@@ -22,8 +27,17 @@ module.exports = {
     },
     extensions: ['', '.js', '.jsx']
   },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin()
+  ],
   module: {
     loaders: [
+      {
+        test: /\.js$/,
+        loaders: ['react-hot', 'babel'],
+        include: path.join(__dirname, 'src')
+      },
       {
         loader: 'babel-loader',
         query: {
