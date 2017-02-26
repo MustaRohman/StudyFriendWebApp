@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Datepicker from 'Datepicker';
+import Datepicker from 'app/components/timetable/Datepicker/Datepicker.jsx';
 
 
 export default class Config extends React.Component {

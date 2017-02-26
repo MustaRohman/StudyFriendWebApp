@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-import TopicList from 'TopicList';
-import SubjectList from 'app/components/timetable/SubjectList/SubjectList.jsx';
+import TopicList from 'app/components/timetable/TopicList/TopicList.jsx';
 
 export default class AddSubject extends React.Component {
   static propTypes = {

@@ -20,12 +20,12 @@ const Datepicker = React.createClass({
   },
 
   render: function() {
-    return <DatePicker
+    return (<DatePicker
       todayButton={"Today's Date"}
               selected={this.state.startDate}
               onChange={this.handleChange}
               dateFormat="YYYY/MM/DD"
-              showMonthDropdown />
+              showMonthDropdown />);
   }
 });
 

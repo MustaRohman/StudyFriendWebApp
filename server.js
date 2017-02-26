@@ -1,16 +1,19 @@
+/* eslint no-console: 0 */
+import path from 'path';
 const webpack = require('webpack');
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
 const express = require('express');
 
 const app = express();
+import config from './webpack.config.js';
+const isDeveloping = process.env.NODE_ENV !== 'production';
 
-const env = process.env.NODE_ENV || 'development';
-if (env === 'development') {
-  const config = require('./webpack.config');
+if (isDeveloping) {
   const compiler = webpack(config);
-
-  app.use(require('webpack-dev-middleware')(compiler, {
+  const middleware = webpackMiddleware(compiler, {
     publicPath: config.output.publicPath,
-    contentBase: 'app',
+    contentBase: 'src',
     stats: {
       colors: true,
       hash: false,
@@ -19,16 +22,24 @@ if (env === 'development') {
       chunkModules: false,
       modules: false
     }
-  }));
+  });
 
-  app.use(require('webpack-hot-middleware')(compiler));
+  app.use(middleware);
+  app.use(webpackHotMiddleware(compiler));
+  app.get('*', function response(req, res) {
+    res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+    res.end();
+  });
+} else {
+  app.use(express.static(__dirname + '/dist'));
+  app.get('*', function response(req, res) {
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
+  });
 }
 
-app.use(express.static('public'));
-
-app.listen(3000, function(err) {
+app.listen(3000, (err) => {
   if (err) {
-    return console.error(err);
+    console.error(err);
   }
 
   console.log('Listening at http://localhost:3000/');

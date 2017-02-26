@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import TopicInputField from 'TopicInputField';
-import TopicListItem from 'TopicListItem';
+import TopicInputField from 'app/components/timetable/TopicInputField/TopicInputField.jsx';
+import TopicListItem from 'app/components/timetable/TopicListItem/TopicListItem.jsx';
 
 import Alert from 'react-s-alert';
 
