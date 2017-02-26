@@ -6,7 +6,7 @@
     "local": "webpack && nodemon server.js --exec babel-node",
     "build": "./node_modules/.bin/babel server.js -d dist",
     "serve": "node dist/server.js",
-    "postinstall": "webpack && n",
+    "postinstall": "if [ $NODE_ENV  = 'production'] then webpack -p -config webpack.production.config.js",
     "start": "babel-node server.js —presets es2015,stage-2",
     "server:watch": "nodemon server.js --exec babel-node --presets es2015,stage-0",
     "test": "mocha"
