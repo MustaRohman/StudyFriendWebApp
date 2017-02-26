@@ -24,13 +24,11 @@ export default class AddSubject extends React.Component {
     this.setState({
       name: event.target.value
     });
-    console.log(this.state);
   }
   handleAddTopic(newTopics) {
     this.setState({
       topics: newTopics
     });
-    console.log(this.state);
   }
   handleAddSubject(event) {
     event.preventDefault();

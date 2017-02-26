@@ -46,7 +46,6 @@ export default class TopicList extends Component {
     <li key={index}><TopicListItem name={name}
       itemDelete={(item)=> {this.handleItemDelete(item);}}/></li>
     );
-    console.log(listItems);
     return (
       <div>
         <TopicInputField listChange={(name)=> {this.handleListChange(name);}}/>

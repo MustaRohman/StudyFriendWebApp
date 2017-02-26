@@ -5,11 +5,16 @@ import React, { PropTypes, Component } from 'react';
 
 import styles from './timetableForm.css';
 
-const { string, array } = PropTypes;
+const { string, array, number } = PropTypes;
 
 export default class TimetableForm extends Component {
   static propTypes = {
     name: string,
+    'exam-start-date': string,
+    'revision-start-date': string,
+    'session-duration': number,
+    'break-duration': number,
+    reward: number,
     subjects: array
   };
   constructor(props) {
@@ -17,6 +22,11 @@ export default class TimetableForm extends Component {
   }
   state = {
     name: '',
+    'exam-start-date': '',
+    'revision-start-date': '',
+    'session-duration': 45,
+    'break-duration': 15,
+    reward: 60,
     subjects: []
   };
   handleChange(event) {
@@ -26,12 +36,13 @@ export default class TimetableForm extends Component {
   //  alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
   }
-  handleConfig(updates) {
-    this.setState(updates);
+  handleConfig(newValues) {
+    this.setState(newValues);
+    console.log(this.state);
   }
 
   handleAddSubject(subject) {
-    const newSubjects = this.state.subjects.splice();
+    const newSubjects = this.state.subjects.slice();
     newSubjects.push(subject);
     this.setState({
       subjects: newSubjects
@@ -40,10 +51,10 @@ export default class TimetableForm extends Component {
   render() {
     return (
         <div className={styles.app}>
-          <span><SubjectList subjects={this.state.subjects}/></span>
           <h1>Create Timetable</h1>
             <form onSubmit={(event) => {this.handleSubmit(event);}}>
-              <Config onNewConfig={this.handleConfig}/>
+              <span><Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}/></span>
+              <SubjectList subjects={this.state.subjects}/>
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
             </form>
         </div>
