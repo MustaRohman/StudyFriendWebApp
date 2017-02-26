@@ -1,7 +1,8 @@
-import Config from 'Config';
+import Config from 'app/components/timetable/Config/Config.jsx';
 import AddSubject from 'app/components/timetable/AddSubject/AddSubject.jsx';
 import SubjectList from 'app/components/timetable/SubjectList/SubjectList.jsx';
 import React, { PropTypes, Component } from 'react';
+
 import styles from './timetableForm.css';
 
 const { string, array } = PropTypes;

@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Datepicker from 'Datepicker';
+import Datepicker from 'app/components/timetable/Datepicker/Datepicker.jsx';
 
 
 export default class Config extends React.Component {
@@ -21,7 +21,7 @@ export default class Config extends React.Component {
       session: this.refs.session.value,
       break: this.refs.break.value,
       reward: this.refs.reward.value
-    }
+    };
     this.setState(updates);
     this.props.onNewConfig(updates);
   }

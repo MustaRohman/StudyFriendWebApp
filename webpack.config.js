@@ -1,48 +1,48 @@
+'use strict';
+
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './app/app.jsx',
+  devtool: 'eval-source-map',
+  entry: [
+    'webpack-hot-middleware/client?reload=true',
+    'babel-polyfill',
+    path.join(__dirname, 'app/app.js')
+  ],
   output: {
-    path: __dirname,
-    filename: './public/bundle.js'
+    path: path.join(__dirname, '/dist/'),
+    filename: '[name].js',
+    publicPath: '/'
   },
-  resolve: {
-    root: __dirname,
-    alias: {
-      Main: 'app/components/Main.jsx',
-      Login: 'app/components/Login.jsx',
-      TimetableForm: 'app/components/timetable/TimetableForm/TimetableForm.jsx',
-      Datepicker: 'app/components/timetable/Datepicker/Datepicker.jsx',
-      Config: 'app/components/timetable/Config/Config.jsx',
-      AddSubject: 'app/components/timetable/AddSubject/AddSubject.jsx',
-      TopicList: 'app/components/timetable/TopicList/TopicList.jsx',
-      TopicInputField: 'app/components/timetable/TopicInputField/TopicInputField.jsx',
-      TopicListItem: 'app/components/timetable/TopicListItem/TopicListItem.jsx',
-      //
-      timetable: 'app/component/timetable'
-    },
-    extensions: ['', '.js', '.jsx']
-  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'app/index.tpl.html',
+      inject: 'body',
+      filename: 'index.html'
+    }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('development')
+    })
+  ],
   module: {
-    loaders: [
-      {
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-2']
-        },
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader'
-      }, {
-        test: /\.css$/,
-        loader: 'css-loader',
-        query: {
-          modules: true,
-          localIdentName: '[name]__[local]___[hash:base64:5]'
-        }
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /node_modules/,
+      loader: 'babel',
+      query: {
+        'presets': ['react', 'es2015', 'stage-0', 'react-hmre']
       }
-    ]
+    }, {
+      test: /\.json?$/,
+      loader: 'json'
+    }, {
+      test: /\.css$/,
+      loader: 'style!css?modules&importLoaders=1&localIdentName=[local]__[path][name]__[hash:base64:5]!postcss-loader',
+    }]
   }
 };

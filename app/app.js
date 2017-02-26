@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 const {Route, Router, IndexRoute, hashHistory, browserHistory} = require('react-router');
-import Main from 'Main';
-import Login from 'Login';
-import TimetableForm from 'TimetableForm';
+import Main from 'app/components/index.js';
+import TimetableForm from 'app/components/timetable/TimetableForm/TimetableForm.jsx';
 
 
 ReactDOM.render(
@@ -12,6 +11,6 @@ ReactDOM.render(
   //     <Route path="login" component={Login}/>
   //   </Route>
   // </Router>,
-  <Main/>,
-  document.getElementById('app')
+    <Main/>,
+  document.getElementById('root')
 );

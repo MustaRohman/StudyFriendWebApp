@@ -1,5 +1,5 @@
 import React from 'react';
-import TimetableForm from 'TimetableForm';
+import TimetableForm from 'app/components/timetable/TimetableForm/TimetableForm.jsx';
 
 export default class Main extends React.Component {
 
