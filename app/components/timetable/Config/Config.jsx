@@ -12,15 +12,23 @@ export default class Config extends React.Component {
   }
   state = {
     name: 'NewTimetable',
-    session: '45',
-    break: '15',
-    reward: '60'
+    'exam-start-date': '',
+    'revision-start-date': '',
+    'session-duration': 45,
+    'break-duration': 15,
+    reward: 60,
   };
   handleChange(event) {
     const key = event.target.name;
     const value = event.target.value;
     const newState = _.extend({}, this.state);
     newState[key] = value;
+    this.setState(newState);
+    this.props.onNewConfig(this.state);
+  }
+  handleDateChange(date, name) {
+    const newState = _.extend({}, this.state);
+    newState[name] = date.format('YYYY-MM-DD');
     this.setState(newState);
     this.props.onNewConfig(this.state);
   }
@@ -36,12 +44,12 @@ export default class Config extends React.Component {
         <div>
           <label>
             <p>Revision Start Date:</p>
-            <Datepicker onChange={(event) => {this.handleChange(event);}}/>
+            <Datepicker name="revision-start-date" onNewDate={(date, name) => {this.handleDateChange(date, name);}}/>
           </label>
         </div>
         <label>
           <p>Exam Start Date:</p>
-          <Datepicker onChange={(event) => {this.handleChange(event);}}/>
+          <Datepicker name="exam-start-date" onNewDate={(date, name) => {this.handleDateChange(date, name);}}/>
         </label>
         <h3>Durations</h3>
         <label>

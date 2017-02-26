@@ -1,32 +1,37 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import './react-datepicker.css';
 
-const Datepicker = React.createClass({
-  displayName: 'Example',
+export default class Datepicker extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    onNewDate: PropTypes.func.isRequired
+  }
+  constructor(props) {
+    super(props);
+  }
 
-  getInitialState: function() {
-    return {
-      startDate: moment()
-    };
-  },
+  state = {
+    startDate: moment()
+  }
 
-  handleChange: function(date) {
+  handleChange(date) {
     this.setState({
       startDate: date
     });
-  },
+    this.props.onNewDate(date, this.props.name);
+  }
 
-  render: function() {
+  render() {
     return (<DatePicker
       todayButton={"Today's Date"}
               selected={this.state.startDate}
-              onChange={this.handleChange}
+              onChange={(date) => {this.handleChange(date);}}
               dateFormat="YYYY/MM/DD"
               showMonthDropdown />);
   }
-});
+}
 
 module.exports = Datepicker;
