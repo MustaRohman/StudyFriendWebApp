@@ -54,13 +54,13 @@ export default class Config extends React.Component {
         <h3>Durations</h3>
         <label>
           <p>Session:</p>
-          <input ref="session" type="range" min="30" max="60" step="5" value={this.state.session} onChange={(event) => {this.handleChange(event);}}/>
-          <input type="textarea" size="7" value={this.state.session} onChange={(event) => {this.handleChange(event);}}/>
+          <input ref="session" type="range" min="30" max="60" step="5" value={this.state['session-duration']} onChange={(event) => {this.handleChange(event);}}/>
+          <input type="textarea" size="7" value={this.state['session-duration']} onChange={(event) => {this.handleChange(event);}}/>
         </label>
         <label>
           <p>Break:</p>
-          <input ref="break" type="range" min="10" max="30" step="5" value={this.state.break} onChange={(event) => {this.handleChange(event);}}/>
-          <input type="textarea" size="7"value={this.state.break} onChange={(event) => {this.handleChange(event);}}/>
+          <input ref="break" type="range" min="10" max="30" step="5" value={this.state['break-duration']} onChange={(event) => {this.handleChange(event);}}/>
+          <input type="textarea" size="7"value={this.state['break-duration']} onChange={(event) => {this.handleChange(event);}}/>
         </label>
         <label>
           <p>Reward:</p>
