@@ -5,18 +5,9 @@ import React, { PropTypes, Component } from 'react';
 
 import styles from './timetableForm.css';
 
-const { string, array, number } = PropTypes;
+const { string, array, number, object } = PropTypes;
 
 export default class TimetableForm extends Component {
-  static propTypes = {
-    name: string,
-    'exam-start-date': string,
-    'revision-start-date': string,
-    'session-duration': number,
-    'break-duration': number,
-    reward: number,
-    subjects: array
-  };
   constructor(props) {
     super(props);
   }
@@ -26,15 +17,38 @@ export default class TimetableForm extends Component {
     'revision-start-date': '',
     'session-duration': 45,
     'break-duration': 15,
-    reward: 60,
+    reward: {
+      duration: 60
+    },
     subjects: []
   };
+  handleNameChange(value) {
+    this.setState({
+      name: value
+    });
+  }
   handleChange(event) {
     this.setState({value: event.target.value});
   }
-  handleSubmit(event) {
+  async handleSubmit(event) {
   //  alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
+    const response = await fetch('/timetable/create', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response);
+    console.log(await response.json());
+    // fetch('https://studyfriend-timetable.herokuapp.com', {
+    //   method: 'GET'
+    //   // mode: 'no-cors',
+    // }).then((res) => {
+    //   return res.status;
+    // }).then((text) => {
+    //   console.log(text);
+    // });
   }
   handleConfig(newValues) {
     this.setState(newValues);
@@ -47,6 +61,7 @@ export default class TimetableForm extends Component {
     this.setState({
       subjects: newSubjects
     });
+    console.log(this.state);
   }
   render() {
     return (
@@ -56,6 +71,7 @@ export default class TimetableForm extends Component {
               <span><Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}/></span>
               <SubjectList subjects={this.state.subjects}/>
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+              <input type="submit"/>
             </form>
         </div>
     );

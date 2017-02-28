@@ -4,10 +4,33 @@ const webpack = require('webpack');
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 const express = require('express');
+import fetch from 'node-fetch';
 
 const app = express();
 import config from './webpack.config.js';
 const isDeveloping = process.env.NODE_ENV !== 'production';
+
+app.get('/api/timetable', (req, res) => {
+  console.log('lolz');
+  return res.json({lol: 'lolx'});
+});
+
+app.get('/timetable/create', async (req, res) => {
+  try {
+    const response = await fetch('https://studyfriend-timetable.herokuapp.com/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(req.body.json())
+    });
+    console.log(response);
+    return res.json({content: await response.json()});
+  } catch (e) {
+    console.log(e);
+    return res.json({fail: 'failed'});
+  }
+});
 
 if (isDeveloping) {
   const compiler = webpack(config);
