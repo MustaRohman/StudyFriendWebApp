@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import Datepicker from 'app/components/timetable/Datepicker/Datepicker.jsx';
+import Datepicker from 'app/components/Datepicker/';
 import _ from 'underscore';
 
 

@@ -1,6 +1,6 @@
-import Config from 'app/components/timetable/Config/Config.jsx';
-import AddSubject from 'app/components/timetable/AddSubject/AddSubject.jsx';
-import SubjectList from 'app/components/timetable/SubjectList/SubjectList.jsx';
+import Config from 'app/components/Config/';
+import AddSubject from 'app/components/AddSubject/';
+import SubjectList from 'app/components/SubjectList/';
 import React, { PropTypes, Component } from 'react';
 
 import styles from './timetableForm.css';
@@ -39,6 +39,7 @@ export default class TimetableForm extends Component {
         'Content-Type': 'application/json'
       }
     });
+
     console.log(response);
     console.log(await response.json());
     // fetch('https://studyfriend-timetable.herokuapp.com', {
@@ -50,6 +51,8 @@ export default class TimetableForm extends Component {
     //   console.log(text);
     // });
   }
+
+
   handleConfig(newValues) {
     this.setState(newValues);
     console.log(this.state);
