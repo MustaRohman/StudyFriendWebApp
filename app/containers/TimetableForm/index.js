@@ -2,19 +2,26 @@ import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
 import React, { PropTypes, Component } from 'react';
+import moment from 'moment';
 
 import styles from './timetableForm.css';
 
 const { string, array, number, object } = PropTypes;
+
+// DEVELOPMENT:0 Refactor Config component
+// DEVELOPMENT:10 GET request to timetable-api
+// TODO:20 Display JSON response
+// TODO:30 Display in calendar Component
+// TODO:40 Log in
 
 export default class TimetableForm extends Component {
   constructor(props) {
     super(props);
   }
   state = {
-    name: '',
-    'exam-start-date': '',
-    'revision-start-date': '',
+    name: 'NewTimetable',
+    'revision-start-date': moment().format('YYYY-MM-DD'),
+    'exam-start-date': moment().format('YYYY-MM-DD'),
     'session-duration': 45,
     'break-duration': 15,
     reward: {
@@ -22,9 +29,36 @@ export default class TimetableForm extends Component {
     },
     subjects: []
   };
-  handleNameChange(value) {
+  handleNameChange(event) {
     this.setState({
-      name: value
+      name: event.target.value
+    });
+  }
+  handleSessionDurationChange(event) {
+    this.setState({
+      'session-duration': parseInt(event.target.value)
+    });
+  }
+  handleBreakDurationChange(event) {
+    this.setState({
+      'break-duration': parseInt(event.target.value)
+    });
+  }
+  handleRewardDuration(event) {
+    this.setState({
+      reward: {
+        duration: parseInt(event.target.value)
+      }
+    });
+  }
+  handleRevisionDateChange(date) {
+    this.setState({
+      'revision-start-date': date.format('YYYY-MM-DD')
+    });
+  }
+  handleExamDateChange(date) {
+    this.setState({
+      'exam-start-date': date.format('YYYY-MM-DD')
     });
   }
   handleChange(event) {
@@ -71,7 +105,21 @@ export default class TimetableForm extends Component {
         <div className={styles.app}>
           <h1>Create Timetable</h1>
             <form onSubmit={(event) => {this.handleSubmit(event);}}>
-              <span><Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}/></span>
+              <span>
+                <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
+                onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
+                onNameChange={(value) => {this.handleNameChange(value);}}
+                onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
+                onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
+                onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
+                onExamDateChange={(date) => {this.handleExamDateChange(date);}}
+                name={this.state.name}
+                examStartDate={this.state['exam-start-date']}
+                revisionStartDate={this.state['revision-start-date']}
+                sessionDuration={this.state['session-duration']}
+                breakDuration={this.state['break-duration']}
+                rewardDuration={this.state.reward.duration} />
+              </span>
               <SubjectList subjects={this.state.subjects}/>
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
               <input type="submit"/>

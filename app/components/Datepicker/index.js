@@ -7,7 +7,8 @@ import './react-datepicker.css';
 export default class Datepicker extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
-    onNewDate: PropTypes.func.isRequired
+    onNewDate: PropTypes.func.isRequired,
+    date: PropTypes.string.isRequired
   }
   constructor(props) {
     super(props);
@@ -27,8 +28,8 @@ export default class Datepicker extends React.Component {
   render() {
     return (<DatePicker
       todayButton={"Today's Date"}
-              selected={this.state.startDate}
-              onChange={(date) => {this.handleChange(date);}}
+              selected={moment(this.props.date)}
+              onChange={(date) => {this.props.onNewDate(date);}}
               dateFormat="YYYY/MM/DD"
               showMonthDropdown />);
   }
