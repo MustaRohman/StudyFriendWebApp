@@ -8,11 +8,12 @@ import styles from './timetableForm.css';
 
 const { string, array, number, object } = PropTypes;
 
-// DEVELOPMENT:0 Refactor Config component
-// DEVELOPMENT:10 GET request to timetable-api
+// COMEPLETE:10 Refactor Config component
+// COMEPLETE:0 GET request to timetable-api
 // TODO:20 Display JSON response
 // TODO:30 Display in calendar Component
 // TODO:40 Log in
+// TODO: DynamoDB
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -67,23 +68,36 @@ export default class TimetableForm extends Component {
   async handleSubmit(event) {
   //  alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
-    const response = await fetch('/timetable/create', {
-      method: 'GET',
+    console.log(JSON.stringify({
+      config: {
+        'exam-start-date': this.state['exam-start-date'],
+        'revision-start-date': this.state['revision-start-date'],
+        'session-duration': this.state['session-duration'],
+        'break-duration': this.state['break-duration'],
+        reward: this.state.reward
+      },
+      subjects: this.state.subjects
+    }));
+    fetch('/timetable/create', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({
+        config: {
+          'exam-start-date': this.state['exam-start-date'],
+          'revision-start-date': this.state['revision-start-date'],
+          'session-duration': this.state['session-duration'],
+          'break-duration': this.state['break-duration'],
+          reward: this.state.reward
+        },
+        subjects: this.state.subjects
+      })
+    }).then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
     });
-
-    console.log(response);
-    console.log(await response.json());
-    // fetch('https://studyfriend-timetable.herokuapp.com', {
-    //   method: 'GET'
-    //   // mode: 'no-cors',
-    // }).then((res) => {
-    //   return res.status;
-    // }).then((text) => {
-    //   console.log(text);
-    // });
   }
 
 

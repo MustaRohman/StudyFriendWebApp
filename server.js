@@ -1,6 +1,7 @@
 /* eslint no-console: 0 */
 import path from 'path';
 const webpack = require('webpack');
+import bodyParser from 'body-parser';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 const express = require('express');
@@ -10,26 +11,40 @@ const app = express();
 import config from './webpack.config.js';
 const isDeveloping = process.env.NODE_ENV !== 'production';
 
+app.use(bodyParser.json());
+
 app.get('/api/timetable', (req, res) => {
   console.log('lolz');
   return res.json({lol: 'lolx'});
 });
 
-app.get('/timetable/create', async (req, res) => {
-  try {
-    const response = await fetch('https://studyfriend-timetable.herokuapp.com/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(req.body.json())
-    });
-    console.log(response);
-    return res.json({content: await response.json()});
-  } catch (e) {
-    console.log(e);
-    return res.json({fail: 'failed'});
-  }
+app.post('/timetable/create', async (req, res) => {
+  fetch('https://studyfriend-timetable.herokuapp.com/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(req.body)
+  }).then((response) => {
+    return response.json();
+  }).then((json) =>{
+    console.log(json);
+    return res.json(json);
+  });
+  // try {
+  //   const response = await fetch('https://studyfriend-timetable.herokuapp.com/create', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(req.body)
+  //   });
+  //   console.log(await response.body);
+  //   return await response.text();
+  // } catch (e) {
+  //   console.log(e);
+  //   return res.json({fail: 'failed'});
+  // }
 });
 
 if (isDeveloping) {

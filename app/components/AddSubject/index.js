@@ -13,7 +13,7 @@ export default class AddSubject extends React.Component {
   }
   handleAddTopicDuration(event) {
     event.preventDefault();
-    this.setState({'topic-duration': event.target.value});
+    this.setState({'topic-duration': parseInt(event.target.value)});
   }
   handleAddName(event) {
     event.preventDefault();
