@@ -1,7 +1,6 @@
 import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
-import Calendar from 'app/components/Calendar/';
 import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
 
@@ -108,7 +107,7 @@ export default class TimetableForm extends Component {
   render() {
     return (
         <div>
-          <h1>Create Timetable</h1>
+          <h1 className="timetable">Create Timetable</h1>
             <form onSubmit={(event) => {this.handleSubmit(event);}}>
               <span>
                 <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
@@ -128,7 +127,6 @@ export default class TimetableForm extends Component {
               <SubjectList subjects={this.state.subjects}/>
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
               <input type="submit"/>
-              <Calendar events={this.state.events}/>
             </form>
         </div>
     );
