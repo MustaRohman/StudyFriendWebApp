@@ -1,19 +1,20 @@
 import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
+import Calendar from 'app/components/Calendar/';
 import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
 
-import styles from './timetableForm.css';
+import './timetableForm.css';
 
 const { string, array, number, object } = PropTypes;
 
 // COMEPLETE:10 Refactor Config component
 // COMEPLETE:0 GET request to timetable-api
-// TODO:20 Display JSON response
-// TODO:30 Display in calendar Component
-// TODO:40 Log in
-// TODO: DynamoDB
+// DEVELOPMENT:0 Display JSON response
+// DEVELOPMENT:10 Display in calendar Component
+// TODO:30 Log in
+// TODO:20 DynamoDB
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -28,7 +29,8 @@ export default class TimetableForm extends Component {
     reward: {
       duration: 60
     },
-    subjects: []
+    subjects: [],
+    events: []
   };
   handleNameChange(event) {
     this.setState({
@@ -66,18 +68,7 @@ export default class TimetableForm extends Component {
     this.setState({value: event.target.value});
   }
   async handleSubmit(event) {
-  //  alert('A name was submitted: ' + this.state.value);
     event.preventDefault();
-    console.log(JSON.stringify({
-      config: {
-        'exam-start-date': this.state['exam-start-date'],
-        'revision-start-date': this.state['revision-start-date'],
-        'session-duration': this.state['session-duration'],
-        'break-duration': this.state['break-duration'],
-        reward: this.state.reward
-      },
-      subjects: this.state.subjects
-    }));
     fetch('/timetable/create', {
       method: 'POST',
       headers: {
@@ -116,7 +107,7 @@ export default class TimetableForm extends Component {
   }
   render() {
     return (
-        <div className={styles.app}>
+        <div>
           <h1>Create Timetable</h1>
             <form onSubmit={(event) => {this.handleSubmit(event);}}>
               <span>
@@ -137,6 +128,7 @@ export default class TimetableForm extends Component {
               <SubjectList subjects={this.state.subjects}/>
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
               <input type="submit"/>
+              <Calendar events={this.state.events}/>
             </form>
         </div>
     );

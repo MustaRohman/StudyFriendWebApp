@@ -34,5 +34,3 @@ export default class Datepicker extends React.Component {
               showMonthDropdown />);
   }
 }
-
-module.exports = Datepicker;

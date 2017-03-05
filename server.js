@@ -28,7 +28,6 @@ app.post('/timetable/create', async (req, res) => {
   }).then((response) => {
     return response.json();
   }).then((json) =>{
-    console.log(json);
     return res.json(json);
   });
   // try {
