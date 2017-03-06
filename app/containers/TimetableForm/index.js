@@ -1,6 +1,7 @@
 import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
+import Calendar from 'app/containers/Calendar/';
 import React, { PropTypes, Component } from 'react';
 import moment from 'moment';
 
@@ -86,10 +87,49 @@ export default class TimetableForm extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      console.log(json);
+      this.createEvents(json);
     });
   }
 
+  createEvents(json) {
+    const timetable = json.timetableAssignment;
+    const newEvents = [];
+
+    for (const date in timetable) {
+      if (!timetable.hasOwnProperty(date)) continue;
+
+      timetable[date].forEach((period) => {
+        const date = period.dateTime.date.split('-');
+        const startTime = period.dateTime.time;
+        const startDate = new Date(
+          parseInt(date[0]),
+          parseInt(date[1]) - 1,
+          parseInt(date[2]),
+          parseInt(startTime.hour),
+          parseInt(startTime.minute),
+        );
+
+        const temp = {
+          title: period.topicName,
+          start: startDate
+        };
+
+        if (period.type === 'BREAK_DAY') {
+          temp.allDay = true;
+        }
+
+        if (period.type === 'SUBJECT' || 'BREAK') {
+          temp.end = moment(startDate).add(period.periodDuration, 'm').toDate();
+        }
+
+        console.log(temp);
+        newEvents.push(temp);
+      });
+    }
+    this.setState({
+      events: newEvents
+    });
+  }
 
   handleConfig(newValues) {
     this.setState(newValues);
@@ -128,6 +168,7 @@ export default class TimetableForm extends Component {
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
               <input type="submit"/>
             </form>
+            <Calendar events={this.state.events} />
         </div>
     );
   }

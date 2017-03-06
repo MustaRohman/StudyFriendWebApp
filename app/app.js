@@ -11,7 +11,7 @@ import TimetableList from 'app/containers/TimetableList/';
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
-      <IndexRoute component={Dashboard}/>
+      <IndexRoute component={Dashboard} />
       <Route path="create" component={TimetableForm}>
         <Route path="result" component={Calendar} />
       </Route>
