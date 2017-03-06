@@ -7,16 +7,10 @@ import React, { PropTypes, Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
 
-import './timetableForm.css';
+import styles from './timetableForm.css';
 
 const { string, array, number, object } = PropTypes;
 
-// COMEPLETE:10 Refactor Config component
-// COMEPLETE:0 GET request to timetable-api
-// DEVELOPMENT:0 Display JSON response
-// DEVELOPMENT:10 Display in calendar Component
-// TODO:30 Log in
-// TODO:20 DynamoDB
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -155,10 +149,10 @@ export default class TimetableForm extends Component {
   }
   render() {
     return (
-        <div>
-          <h1 className="timetable">Create Timetable</h1>
+        <div className={'timetable'}>
+          <h1>Create Timetable</h1>
             <form onSubmit={(event) => {this.handleSubmit(event);}}>
-              <span>
+              <div className={'form'}>
                 <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
                 onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
                 onNameChange={(value) => {this.handleNameChange(value);}}
@@ -172,9 +166,11 @@ export default class TimetableForm extends Component {
                 sessionDuration={this.state['session-duration']}
                 breakDuration={this.state['break-duration']}
                 rewardDuration={this.state.reward.duration} />
-              </span>
-              <SubjectList subjects={this.state.subjects}/>
-              <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+                <div>
+                  <SubjectList subjects={this.state.subjects}/>
+                  <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+                </div>
+              </div>
               <input type="submit"/>
             </form>
             {this.props.children}

@@ -1,8 +1,13 @@
-div {
+.timetable {
   font-family: sans-serif;
+  margin-left: 20px;
 }
 
 .timetable h1 {
   /*color: white;
   background-color: #263238;*/
+}
+
+.form {
+  margin: auto;
 }
