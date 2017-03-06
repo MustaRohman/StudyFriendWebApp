@@ -13,9 +13,11 @@ ReactDOM.render(
     <Route path="/" component={Main}>
       <IndexRoute component={Dashboard} />
       <Route path="create" component={TimetableForm}>
-        <Route path="result" component={Calendar} />
+        <Route path="result/:timetableId" component={Calendar}/>
       </Route>
-      <Route path="view" component={TimetableList}/>
+      <Route path="view" component={TimetableList}>
+        <Route path="view/:timetableId"/>
+      </Route>
     </Route>
   </Router>,
   document.getElementById('root')

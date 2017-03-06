@@ -320,8 +320,8 @@ button.rbc-input::-moz-focus-inner {
   display: flex;
   -ms-flex-direction: column;
       flex-direction: column;
-  -ms-flex: 100px;
-      flex: 100px;
+  -ms-flex: 500px;
+      flex: 500px;
   overflow: auto;
 }
 .rbc-agenda-view table {

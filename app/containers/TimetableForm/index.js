@@ -2,7 +2,9 @@ import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
 import Calendar from 'app/containers/Calendar/';
+
 import React, { PropTypes, Component } from 'react';
+import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
 
 import './timetableForm.css';
@@ -88,6 +90,9 @@ export default class TimetableForm extends Component {
       return res.json();
     }).then((json) => {
       this.createEvents(json);
+      // Save json in DynamoDB
+      const path = '/create/result/12';
+      browserHistory.push(path);
     });
   }
 
@@ -114,6 +119,12 @@ export default class TimetableForm extends Component {
           start: startDate
         };
 
+        if (period.type === 'BREAK') {
+          temp.title = 'Break';
+        } else if (period.type === 'REWARD') {
+          temp.title = 'Reward';
+        }
+
         if (period.type === 'BREAK_DAY') {
           temp.allDay = true;
         }
@@ -133,7 +144,6 @@ export default class TimetableForm extends Component {
 
   handleConfig(newValues) {
     this.setState(newValues);
-    console.log(this.state);
   }
 
   handleAddSubject(subject) {
@@ -142,7 +152,6 @@ export default class TimetableForm extends Component {
     this.setState({
       subjects: newSubjects
     });
-    console.log(this.state);
   }
   render() {
     return (
@@ -168,7 +177,7 @@ export default class TimetableForm extends Component {
               <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
               <input type="submit"/>
             </form>
-            <Calendar events={this.state.events} />
+            {this.props.children}
         </div>
     );
   }

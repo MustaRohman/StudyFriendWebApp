@@ -16,7 +16,7 @@
 }
 
 .jumbotron li a, a:link, a:visited {
-  color: white;
+  color: grey;
   display: block;
   width: 60px;
 }

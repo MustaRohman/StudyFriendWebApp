@@ -11,8 +11,8 @@ export default class Main extends React.Component {
         <div className="jumbotron">
           <h1>StudyFriend</h1>
           <ul>
-            <li><Link to="/create">Create</Link></li>
-            <li><Link to="/view">View</Link></li>
+            <li><Link to="/create" activeStyle={{ color: 'white' }}>Create</Link></li>
+            <li><Link to="/view" activeStyle={{ color: 'white' }}>View</Link></li>
           </ul>
         </div>
           {this.props.children}
