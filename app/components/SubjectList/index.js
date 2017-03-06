@@ -6,7 +6,7 @@ export default class SubjectList extends React.Component {
   }
   render() {
     const listItems = this.props.subjects.map((subject, index) =>
-      <li key={index}><h4>subject.name</h4></li>
+      <li key={index}><h4>{subject.name}</h4></li>
     );
     return (
       <div>

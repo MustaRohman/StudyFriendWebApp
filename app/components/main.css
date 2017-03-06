@@ -1,0 +1,22 @@
+.jumbotron {
+  color: white;
+  background-color: #263238;
+}
+
+.jumbotron h1 {
+  display: inline;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.jumbotron ul {
+  list-style-type: none;
+  display: inline;
+}
+
+.jumbotron li a, a:link, a:visited {
+  color: grey;
+  display: block;
+  width: 60px;
+}

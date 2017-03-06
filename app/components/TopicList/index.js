@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import TopicInputField from 'app/components/timetable/TopicInputField/TopicInputField.jsx';
-import TopicListItem from 'app/components/timetable/TopicListItem/TopicListItem.jsx';
+import TopicInputField from 'app/components/TopicInputField/';
+import TopicListItem from 'app/components/TopicListItem/';
 
 import Alert from 'react-s-alert';
 
@@ -46,7 +46,6 @@ export default class TopicList extends Component {
     <li key={index}><TopicListItem name={name}
       itemDelete={(item)=> {this.handleItemDelete(item);}}/></li>
     );
-    console.log(listItems);
     return (
       <div>
         <TopicInputField listChange={(name)=> {this.handleListChange(name);}}/>
