@@ -141,6 +141,12 @@ export default class TimetableForm extends Component {
   }
 
   handleAddSubject(subject) {
+    function hasSameName(existing) {
+      return subject.name === existing.name;
+    }
+    if (this.state.subjects.some(hasSameName)) {
+      return;
+    }
     const newSubjects = this.state.subjects.slice();
     newSubjects.push(subject);
     this.setState({

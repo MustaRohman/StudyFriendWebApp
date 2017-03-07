@@ -25,7 +25,9 @@ export default class AddSubject extends React.Component {
   }
   handleAddSubject(event) {
     event.preventDefault();
-    this.props.addSubject(this.state);
+    if (this.state.topics.length !== 0 && this.state.name && this.state['topic-duration']) {
+      this.props.addSubject(this.state);
+    }
   }
   render() {
     return (
