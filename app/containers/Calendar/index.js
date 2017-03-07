@@ -4,6 +4,7 @@ import moment from 'moment';
 import events from './events.js';
 
 import {} from './react-big-calendar.css';
+import styles from './style.css';
 
 // Setup the localizer by providing the moment (or globalize) Object
 // to the correct localizer.
@@ -15,7 +16,7 @@ export default class Calendar extends Component {
   }
   render() {
     return (
-      <div>
+      <div className={'calendar'}>
         <BigCalendar
           {...this.props}
           events={events}

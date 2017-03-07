@@ -150,30 +150,29 @@ export default class TimetableForm extends Component {
   render() {
     return (
         <div className={'timetable'}>
-          <h1>Create Timetable</h1>
-            <form onSubmit={(event) => {this.handleSubmit(event);}}>
-              <div className={'form'}>
-                <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
-                onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
-                onNameChange={(value) => {this.handleNameChange(value);}}
-                onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
-                onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
-                onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
-                onExamDateChange={(date) => {this.handleExamDateChange(date);}}
-                name={this.state.name}
-                examStartDate={this.state['exam-start-date']}
-                revisionStartDate={this.state['revision-start-date']}
-                sessionDuration={this.state['session-duration']}
-                breakDuration={this.state['break-duration']}
-                rewardDuration={this.state.reward.duration} />
-                <div>
-                  <SubjectList subjects={this.state.subjects}/>
-                  <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
-                </div>
+          <form onSubmit={(event) => {this.handleSubmit(event);}}>
+            <div className={'form'}>
+              <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
+              onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
+              onNameChange={(value) => {this.handleNameChange(value);}}
+              onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
+              onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
+              onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
+              onExamDateChange={(date) => {this.handleExamDateChange(date);}}
+              name={this.state.name}
+              examStartDate={this.state['exam-start-date']}
+              revisionStartDate={this.state['revision-start-date']}
+              sessionDuration={this.state['session-duration']}
+              breakDuration={this.state['break-duration']}
+              rewardDuration={this.state.reward.duration} />
+              <div className={'subjects'}>
+                <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+                <SubjectList subjects={this.state.subjects}/>
               </div>
-              <input type="submit"/>
-            </form>
-            {this.props.children}
+            </div>
+            <button className={'submit'}>Create</button>
+          </form>
+          {this.props.children}
         </div>
     );
   }

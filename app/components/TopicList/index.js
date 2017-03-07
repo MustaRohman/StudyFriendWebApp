@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import TopicInputField from 'app/components/TopicInputField/';
 import TopicListItem from 'app/components/TopicListItem/';
 
-import Alert from 'react-s-alert';
+import styles from './style.css';
 
 export default class TopicList extends Component {
   static propTypes = {
@@ -47,8 +47,8 @@ export default class TopicList extends Component {
       itemDelete={(item)=> {this.handleItemDelete(item);}}/></li>
     );
     return (
-      <div>
-        <TopicInputField listChange={(name)=> {this.handleListChange(name);}}/>
+      <div className={'topiclist'}>
+        <TopicInputField className={'topicinput'} listChange={(name)=> {this.handleListChange(name);}}/>
         <ul>{listItems}</ul>
       </div>
     );
