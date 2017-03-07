@@ -1,0 +1,14 @@
+.topicinput {
+  width: 150px;
+  display: inline;
+}
+
+.topicinput button {
+  width: 25px;
+  display: inline;
+}
+
+.topicinput input {
+  width: 100px;
+  display: inline;
+}

@@ -1,0 +1,10 @@
+.topiclist {
+  height: 100%;
+  width: 50%;
+  display: inline;
+  float: left;
+}
+
+.topicinput {
+  display: block;
+}

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import TopicList from 'app/components/TopicList/';
+import styles from './style.css';
 
 export default class AddSubject extends React.Component {
   static propTypes = {
@@ -24,33 +25,42 @@ export default class AddSubject extends React.Component {
   }
   handleAddSubject(event) {
     event.preventDefault();
-    this.props.addSubject(this.state);
+    if (this.state.topics.length !== 0 && this.state.name && this.state['topic-duration']) {
+      this.props.addSubject(this.state);
+    }
   }
   render() {
     return (
-            <div>
+            <div className={'addsubject'}>
                 <h2>Add Subjects</h2>
-                <div>
-                    <label>
-                        <p>Subject Name:</p>
-                        <input onChange={(event) => {
-                          this.handleAddName(event);
-                        }} type="text"/>
-                    </label>
-                    <label>
-                        <p>Topic Duration (Hours):</p>
-                        <input onChange={(event) => {
-                          this.handleAddTopicDuration(event);
-                        }} type="number"/>
-                    </label>
+                <div className={'row'}>
+                  <div className={'left'}>
+                    <div>
+                      <label>
+                          <p>Subject Name:</p>
+                          <input onChange={(event) => {
+                            this.handleAddName(event);
+                          }} type="text"/>
+                      </label>
+                      <label>
+                          <p>Topic Duration (Hours):</p>
+                          <input onChange={(event) => {
+                            this.handleAddTopicDuration(event);
+                          }} type="number"/>
+                      </label>
+                    </div>
+                  </div>
+                  <div className={'right'}>
                     <h3>Topics</h3>
                     <TopicList addTopic={(topic) => {
                       this.handleAddTopic(topic);
                     }}/>
-                    <button onClick={(event) => {
-                      this.handleAddSubject(event);
-                    }}>Add</button>
+                  </div>
                 </div>
+
+                <button onClick={(event) => {
+                  this.handleAddSubject(event);
+                }}>Add Subject</button>
             </div>
     );
   }

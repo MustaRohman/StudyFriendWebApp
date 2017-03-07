@@ -7,16 +7,10 @@ import React, { PropTypes, Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
 
-import './timetableForm.css';
+import styles from './timetableForm.css';
 
 const { string, array, number, object } = PropTypes;
 
-// COMEPLETE:10 Refactor Config component
-// COMEPLETE:0 GET request to timetable-api
-// DEVELOPMENT:0 Display JSON response
-// DEVELOPMENT:10 Display in calendar Component
-// TODO:30 Log in
-// TODO:20 DynamoDB
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -147,6 +141,12 @@ export default class TimetableForm extends Component {
   }
 
   handleAddSubject(subject) {
+    function hasSameName(existing) {
+      return subject.name === existing.name;
+    }
+    if (this.state.subjects.some(hasSameName)) {
+      return;
+    }
     const newSubjects = this.state.subjects.slice();
     newSubjects.push(subject);
     this.setState({
@@ -155,29 +155,30 @@ export default class TimetableForm extends Component {
   }
   render() {
     return (
-        <div>
-          <h1 className="timetable">Create Timetable</h1>
-            <form onSubmit={(event) => {this.handleSubmit(event);}}>
-              <span>
-                <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
-                onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
-                onNameChange={(value) => {this.handleNameChange(value);}}
-                onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
-                onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
-                onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
-                onExamDateChange={(date) => {this.handleExamDateChange(date);}}
-                name={this.state.name}
-                examStartDate={this.state['exam-start-date']}
-                revisionStartDate={this.state['revision-start-date']}
-                sessionDuration={this.state['session-duration']}
-                breakDuration={this.state['break-duration']}
-                rewardDuration={this.state.reward.duration} />
-              </span>
-              <SubjectList subjects={this.state.subjects}/>
-              <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
-              <input type="submit"/>
-            </form>
-            {this.props.children}
+        <div className={'timetable'}>
+          <form onSubmit={(event) => {this.handleSubmit(event);}}>
+            <div className={'form'}>
+              <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
+              onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
+              onNameChange={(value) => {this.handleNameChange(value);}}
+              onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
+              onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
+              onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
+              onExamDateChange={(date) => {this.handleExamDateChange(date);}}
+              name={this.state.name}
+              examStartDate={this.state['exam-start-date']}
+              revisionStartDate={this.state['revision-start-date']}
+              sessionDuration={this.state['session-duration']}
+              breakDuration={this.state['break-duration']}
+              rewardDuration={this.state.reward.duration} />
+              <div className={'subjects'}>
+                <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+                <SubjectList subjects={this.state.subjects}/>
+              </div>
+            </div>
+            <button className={'submit'}>Create</button>
+          </form>
+          {this.props.children}
         </div>
     );
   }

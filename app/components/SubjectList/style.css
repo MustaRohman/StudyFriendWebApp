@@ -1,0 +1,13 @@
+.subjectlist {
+  height: 100%;
+  width: 50%;
+  display: inline;
+  float: right;
+}
+
+.subjectlist ul {
+    border: 1px solid #bac2c6;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 75%;
+}

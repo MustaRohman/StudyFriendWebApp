@@ -1,8 +1,24 @@
-div {
+.timetable {
   font-family: sans-serif;
+  margin-left: 210px;
+  margin-right: 210px;
 }
 
-.timetable h1 {
-  /*color: white;
-  background-color: #263238;*/
+.submit {
+  font-size: 15px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  display: block;
+  float: right;
+}
+
+.form {
+  margin: auto;
+}
+
+.subjects {
+width: 100%;
+ height: 300px;
+ margin: auto;
+ padding: 10px;
 }

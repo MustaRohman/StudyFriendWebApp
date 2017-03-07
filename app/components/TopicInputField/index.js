@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
+import styles from './style.css';
+
 export default class TopicInputField extends Component {
   static propTypes = {
     listChange: PropTypes.func.isRequired
@@ -25,7 +27,8 @@ export default class TopicInputField extends Component {
     this.props.listChange(this.state.topicName);
   }
   render() {
-    return (<div>
+    return (
+    <div className={'topicinput'}>
       <input type="text" value={this.state.topicName} onChange={(event)=> {this.handleChange(event);}}/>
       <button onClick={(event)=> {this.onAdd(event);}}>+</button>
     </div>);

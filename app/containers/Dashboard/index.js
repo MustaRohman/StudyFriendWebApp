@@ -3,7 +3,10 @@ import React from 'react';
 export default class Dashboard extends React.Component {
   render() {
     return (
-      <div>Welcome to StudyFriend!</div>
+      <div>
+        <p>Welcome to StudyFriend!</p>
+        <p>Click 'Create' to get started!</p>
+      </div>
     );
   }
 }

@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import styles from './style.css';
 
 export default class SubjectList extends React.Component {
   static propTypes = {
@@ -9,7 +10,8 @@ export default class SubjectList extends React.Component {
       <li key={index}><h4>{subject.name}</h4></li>
     );
     return (
-      <div>
+      <div className={'subjectlist'}>
+        <h3>Subject List</h3>
         <ul>{listItems}</ul>
       </div>
     );
