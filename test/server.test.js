@@ -1,5 +1,6 @@
 const request = require('supertest');
 const timetableInput = './input.js';
+const timetableOutput = './output.js';
 describe('loading express', function() {
   let server;
   beforeEach(() => {
@@ -21,6 +22,7 @@ describe('loading express', function() {
       .expect('Content-Type', /json/)
       .end(function(err, res) {
         if (err) return done(err);
+        console.log(res.body);
         done();
       });
   });
