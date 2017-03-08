@@ -85,8 +85,8 @@ export default class TimetableForm extends Component {
     }).then((json) => {
       this.createEvents(json);
       // Save json in DynamoDB
-      const path = '/create/result/12';
-      browserHistory.push(path);
+      // const path = '/create/result/12';
+      // browserHistory.push(path);
     });
   }
 
@@ -178,7 +178,7 @@ export default class TimetableForm extends Component {
             </div>
             <button className={'submit'}>Create</button>
           </form>
-          {this.props.children}
+          <Calendar events={this.state.events}/>
         </div>
     );
   }
