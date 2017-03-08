@@ -13,9 +13,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 
 app.use(bodyParser.json());
 
-app.get('/api/timetable', (req, res) => {
-  console.log('lolz');
-  return res.json({lol: 'lolx'});
+app.get('/', (req, res) => {
+  return res.send('Welcome to StudyFriend!');
 });
 
 app.post('/timetable/create', async (req, res) => {
@@ -30,20 +29,6 @@ app.post('/timetable/create', async (req, res) => {
   }).then((json) =>{
     return res.json(json);
   });
-  // try {
-  //   const response = await fetch('https://studyfriend-timetable.herokuapp.com/create', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify(req.body)
-  //   });
-  //   console.log(await response.body);
-  //   return await response.text();
-  // } catch (e) {
-  //   console.log(e);
-  //   return res.json({fail: 'failed'});
-  // }
 });
 
 if (isDeveloping) {
@@ -74,10 +59,12 @@ if (isDeveloping) {
   });
 }
 
-app.listen(3000, (err) => {
+const server = app.listen(3000, (err) => {
   if (err) {
     console.error(err);
   }
 
   console.log('Listening at http://localhost:3000/');
 });
+
+module.exports = server;
