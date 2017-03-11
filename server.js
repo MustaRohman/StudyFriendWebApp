@@ -6,10 +6,11 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 const express = require('express');
 import fetch from 'node-fetch';
-
+require('dotenv').config();
 const app = express();
 import config from './webpack.config.js';
 const isDeveloping = process.env.NODE_ENV !== 'production';
+const { API_URL } = process.env;
 
 app.use(bodyParser.json());
 
@@ -18,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/timetable/create', async (req, res) => {
-  fetch('https://studyfriend-timetable.herokuapp.com/create', {
+  fetch(`${API_URL}create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

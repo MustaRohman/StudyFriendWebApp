@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import TopicList from 'app/components/TopicList/';
 import styles from './style.css';
 
+
 export default class AddSubject extends React.Component {
   static propTypes = {
     addSubject: PropTypes.func.isRequired
@@ -14,7 +15,8 @@ export default class AddSubject extends React.Component {
   }
   handleAddTopicDuration(event) {
     event.preventDefault();
-    this.setState({'topic-duration': parseInt(event.target.value)});
+    console.log(`Topic Duration: ${parseInt(event.target.value, 10) * 60}`);
+    this.setState({'topic-duration': parseInt(event.target.value, 10) * 60});
   }
   handleAddName(event) {
     event.preventDefault();
@@ -50,7 +52,7 @@ export default class AddSubject extends React.Component {
                       </label>
                     </div>
                   </div>
-                  <div className={'right'}>
+                  <div className={styles.right}>
                     <h3>Topics</h3>
                     <TopicList addTopic={(topic) => {
                       this.handleAddTopic(topic);
