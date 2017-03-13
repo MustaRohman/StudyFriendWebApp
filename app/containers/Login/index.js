@@ -28,7 +28,7 @@ export default class  Login extends Component {
                            scope="profile"
                            responseHandler={this.responseGoogle}
                            buttonText="Login With Google"
-                           className={'google-class'}/>
+                           className={'google'}/>
                </div>
            </Paper>
       </MuiThemeProvider>
