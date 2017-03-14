@@ -22,7 +22,6 @@ injectTapEventPlugin();
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
-      <IndexRoute component={Dashboard} />
       <Route path="create" component={TimetableForm}>
         <Route path="result/:timetableId" component={Calendar}/>
       </Route>
@@ -30,7 +29,7 @@ ReactDOM.render(
         <Route path="view/:timetableId"/>
       </Route>
     </Route>
-    <Route path="login" component={Login}/>
+    <Route path="/login" component={Login}/>
   </Router>,
   document.getElementById('root')
 );

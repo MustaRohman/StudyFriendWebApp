@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { browserHistory } from 'react-router';
 import { GoogleLogin } from 'react-google-login-component';
 import Paper from 'material-ui/Paper';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -10,10 +11,10 @@ export default class  Login extends Component {
     super(props, context);
   }
 
-  responseGoogle(googleUser) {
-    const id_token = googleUser.getAuthResponse().id_token;
-    console.log({accessToken: id_token});
-    // anything else you want to do(save to localStorage)...
+  async handleLogin() {
+    fetch('/auth/google', {
+      method: 'GET'
+    });
   }
 
   render() {
@@ -23,12 +24,7 @@ export default class  Login extends Component {
             <div>
               <h1>StudyFriend</h1>
               <h2>Welcome to the dynamic revision planner!</h2>
-              <GoogleLogin socialId="375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com"
-                           class="google-login"
-                           scope="profile"
-                           responseHandler={this.responseGoogle}
-                           buttonText="Login With Google"
-                           className={'google'}/>
+              <a href="/auth/google">Sign in with Google</a>
                </div>
            </Paper>
       </MuiThemeProvider>
