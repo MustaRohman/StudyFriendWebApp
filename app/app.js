@@ -22,6 +22,7 @@ injectTapEventPlugin();
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
+      <IndexRoute component={Dashboard} />
       <Route path="create" component={TimetableForm}>
         <Route path="result/:timetableId" component={Calendar}/>
       </Route>

@@ -17,15 +17,22 @@ export default class  Login extends Component {
     });
   }
 
+  componentWillMount() {
+    document.body.style.backgroundColor = '#B42800';
+  }
+  componentWillUnmount() {
+    document.body.style.backgroundColor = null;
+  }
+
   render() {
     return (
       <MuiThemeProvider>
-          <Paper className={'login'} zDepth={2}>
+          <Paper className={'login'} zDepth={5}>
             <div>
               <h1>StudyFriend</h1>
               <h2>Welcome to the dynamic revision planner!</h2>
-              <a href="/auth/google">Sign in with Google</a>
-               </div>
+              <a href="/auth/google/callback">Sign in with Google</a>
+            </div>
            </Paper>
       </MuiThemeProvider>
     );

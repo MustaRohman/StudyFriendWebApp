@@ -15,7 +15,6 @@ const activeStyle = {
 };
 
 export default class Main extends React.Component {
-
   state = {
     open: false
   }
@@ -39,8 +38,10 @@ export default class Main extends React.Component {
       <MuiThemeProvider>
         <div>
           <AppBar
+            className={'menubar'}
             title={<span style={styles.title}>StudyFriend</span>}
             onLeftIconButtonTouchTap={(event) => {this.handleTouchTap(event);}}
+            iconElementRight={<FlatButton label="Logout" href="/logout" />}
           />
           <Popover
             open={this.state.open}
@@ -49,8 +50,8 @@ export default class Main extends React.Component {
             targetOrigin={{horizontal: 'left', vertical: 'top'}}
             onRequestClose={() => {this.handleRequestClose();}}>
             <Menu>
-              <MenuItem primaryText="Create Timetable" />
-              <MenuItem primaryText="View Timetables" />
+              <MenuItem containerElement={<Link to="/create" />} primaryText="Create Timetable"/>
+              <MenuItem containerElement={<Link to="/view" />} primaryText="View Timetables"><Link to="/view"/></MenuItem>
             </Menu>
           </Popover>
           {this.props.children}
