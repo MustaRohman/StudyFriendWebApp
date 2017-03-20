@@ -2,6 +2,7 @@ import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
 import Calendar from 'app/containers/Calendar/';
+import Paper from 'material-ui/Paper';
 
 import React, { PropTypes, Component } from 'react';
 import { Link, browserHistory } from 'react-router';
@@ -35,18 +36,18 @@ export default class TimetableForm extends Component {
   }
   handleSessionDurationChange(event) {
     this.setState({
-      'session-duration': parseInt(event.target.value)
+      'session-duration': parseInt(event.target.value, 10)
     });
   }
   handleBreakDurationChange(event) {
     this.setState({
-      'break-duration': parseInt(event.target.value)
+      'break-duration': parseInt(event.target.value, 10)
     });
   }
   handleRewardDuration(event) {
     this.setState({
       reward: {
-        duration: parseInt(event.target.value)
+        duration: parseInt(event.target.value, 10)
       }
     });
   }
@@ -64,14 +65,17 @@ export default class TimetableForm extends Component {
     this.setState({value: event.target.value});
   }
   async handleSubmit(event) {
+    console.log('handleSubmit testing');
     event.preventDefault();
     fetch('/timetable/create', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
+      credentials: 'same-origin',
       body: JSON.stringify({
         config: {
+          name: this.state.name,
           'exam-start-date': this.state['exam-start-date'],
           'revision-start-date': this.state['revision-start-date'],
           'session-duration': this.state['session-duration'],

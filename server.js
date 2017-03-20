@@ -5,17 +5,15 @@ import bodyParser from 'body-parser';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import express from 'express';
-const passport         = require( 'passport' ),
-  util             = require( 'util' ),
-  cookieParser     = require( 'cookie-parser' ),
-  session          = require( 'express-session' ),
-  RedisStore       = require( 'connect-redis' )( session ),
-  GoogleStrategy   = require( 'passport-google-oauth2' ).Strategy;
 import fetch from 'node-fetch';
 import config from './webpack.config.js';
-
-let GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com',
-  GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
+import passport from 'passport';
+import util from 'util';
+import cookieParser from 'cookie-parser';
+const session = require( 'express-session' );
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
 
 require('dotenv').config();
 const app = express();
@@ -23,8 +21,26 @@ const isDeveloping = process.env.NODE_ENV !== 'production';
 const { API_URL } = process.env;
 
 
+app.use( cookieParser());
+app.use( bodyParser.json());
+app.use( bodyParser.urlencoded({
+  extended: true
+}));
+app.use(session({
+  secret: 'hello'
+}));
+app.use(function(req, res, next) {
+  if (!req.session) {
+    return next(new Error()); // handle error
+  }
+  next(); // otherwise continue
+});
+app.use( passport.initialize());
+app.use( passport.session());
+
+
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.id);
 });
 
 passport.deserializeUser((obj, done) => {
@@ -34,76 +50,42 @@ passport.deserializeUser((obj, done) => {
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-    // NOTE :
-    // Carefull ! and avoid usage of Private IP, otherwise you will get the device_id device_name issue for Private IP during authentication
-    // The workaround is to set up thru the google cloud console a fully qualified domain name such as http://mydomain:3000/
-    // then edit your /etc/hosts local file to point on your private IP.
-    // Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and lead to lost your session
-    // if you use it.
-  callbackURL: 'http://localhost:3000/auth/google/callback',
-  passReqToCallback: true
+  callbackURL: 'http://localhost:3000/auth/google/callback'
 },
-  (request, accessToken, refreshToken, profile, done) =>{
-    process.nextTick(function() {
-      return done(null, profile);
-    });
+  function(token, tokenSecret, profile, done) {
+    return done(null, profile);
   }
 ));
 
-app.use( cookieParser());
-app.use( bodyParser.json());
-app.use( bodyParser.urlencoded({
-  extended: true
-}));
-app.use( session({
-  secret: 'cookie_secret',
-  name: 'kaas',
-  store: new RedisStore({
-    host: '127.0.0.1',
-    port: 6379
-  }),
-  proxy: true,
-  resave: true,
-  saveUninitialized: true
-}));
-app.use( passport.initialize());
-app.use( passport.session());
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-app.get('/', (req, res) => {
-  return res.send('Welcome to StudyFriend!');
-});
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      res.redirect('/create');
+    });
 
-app.get('/auth/google', passport.authenticate('google', { scope: [
-  'https://www.googleapis.com/auth/plus.login',
-  'https://www.googleapis.com/auth/plus.profile.emails.read']
-}));
-
-app.get( '/auth/google/callback',
-    	passport.authenticate( 'google', {
-    		successRedirect: '/create',
-    		failureRedirect: '/login'
-    }));
-
-app.get('/logout', function(req, res) {
+app.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('/');
-});
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
   res.redirect('/login');
-}
+});
 
 app.post('/timetable/create', async (req, res) => {
+  // console.log(JSON.stringify(req.body));
+  console.log('User');
+  console.log(req.user);
   fetch(`${API_URL}create`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'UserId': req.user
     },
     body: JSON.stringify(req.body)
   }).then((response) => {
     return response.json();
   }).then((json) =>{
+    console.log(json);
     return res.json(json);
   });
 });
@@ -136,6 +118,15 @@ if (isDeveloping) {
   });
 }
 
+const ensureAuthenticated = (req, res, next) => {
+  console.log('Testing authentication');
+  if (req.isAuthenticated()) {
+    console.log('Is Authenticated');
+    return next();
+  }
+  console.log('Is not Authenticated');
+  return res.redirect('/login');
+};
 
 const server = app.listen(3000, (err) => {
   if (err) {
