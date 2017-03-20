@@ -1,35 +1,9 @@
+.menubar {
+  background-color: #B42800 !important;
+}
+
 body {
   padding: 0px;
   margin: 0;
   font-family: sans-serif;
-}
-.jumbotron {
-  color: white;
-  height: 50px;
-  display: block;
-  background-color: #526168;
-  font-family: sans-serif;
-}
-
-.jumbotron ul {
-  list-style-type: none;
-  display: inline;
-  float: right;
-}
-.jumbotron li {
-  display: inline;
-  margin-right: 15px;
-}
-
-li a, a:link, a:visited {
-  color: #9dc9c9;
-  display: inline;
-  width: auto;
-  text-decoration: none;
-}
-.jumbotron h1 {
-  color: white;
-  width: auto;
-  display: inline;
-  margin: 10px;
 }

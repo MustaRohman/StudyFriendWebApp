@@ -1,33 +1,91 @@
 /* eslint no-console: 0 */
 import path from 'path';
-const webpack = require('webpack');
+import webpack from 'webpack';
 import bodyParser from 'body-parser';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-const express = require('express');
+import express from 'express';
 import fetch from 'node-fetch';
+import config from './webpack.config.js';
+import passport from 'passport';
+import util from 'util';
+import cookieParser from 'cookie-parser';
+const session = require( 'express-session' );
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com';
+const GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
+
 require('dotenv').config();
 const app = express();
-import config from './webpack.config.js';
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const { API_URL } = process.env;
 
-app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  return res.send('Welcome to StudyFriend!');
+app.use( cookieParser());
+app.use( bodyParser.json());
+app.use( bodyParser.urlencoded({
+  extended: true
+}));
+app.use(session({
+  secret: 'hello'
+}));
+app.use(function(req, res, next) {
+  if (!req.session) {
+    return next(new Error()); // handle error
+  }
+  next(); // otherwise continue
+});
+app.use( passport.initialize());
+app.use( passport.session());
+
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
+passport.use(new GoogleStrategy({
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/auth/google/callback'
+},
+  function(token, tokenSecret, profile, done) {
+    return done(null, profile);
+  }
+));
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      res.redirect('/create');
+    });
+
+app.get('/logout', (req, res) => {
+  req.logout();
+  res.redirect('/login');
 });
 
 app.post('/timetable/create', async (req, res) => {
+  // console.log(JSON.stringify(req.body));
+  console.log('User');
+  console.log(req.user);
   fetch(`${API_URL}create`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'UserId': req.user
     },
     body: JSON.stringify(req.body)
   }).then((response) => {
     return response.json();
   }).then((json) =>{
+    console.log(json);
     return res.json(json);
   });
 });
@@ -59,6 +117,16 @@ if (isDeveloping) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));
   });
 }
+
+const ensureAuthenticated = (req, res, next) => {
+  console.log('Testing authentication');
+  if (req.isAuthenticated()) {
+    console.log('Is Authenticated');
+    return next();
+  }
+  console.log('Is not Authenticated');
+  return res.redirect('/login');
+};
 
 const server = app.listen(3000, (err) => {
   if (err) {
