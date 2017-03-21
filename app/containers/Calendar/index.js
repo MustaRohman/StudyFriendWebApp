@@ -22,7 +22,6 @@ export default class Calendar extends Component {
           events={this.props.events}
           startAccessor="start"
           endAccessor="end"
-          defaultDate={new Date(2017, 3, 5)}
         />
       </div>
     );

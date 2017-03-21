@@ -87,15 +87,15 @@ export default class TimetableForm extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      this.createEvents(json);
-      // Save json in DynamoDB
-      // const path = '/create/result/12';
-      // browserHistory.push(path);
+      const newEvents = this.createEvents(json);
+      this.setState({
+        events: newEvents
+      });
     });
   }
 
   createEvents(json) {
-    const timetable = json.timetableAssignment;
+    const timetable = json;
     const newEvents = [];
 
     for (const date in timetable) {
@@ -135,9 +135,7 @@ export default class TimetableForm extends Component {
         newEvents.push(temp);
       });
     }
-    this.setState({
-      events: newEvents
-    });
+    return newEvents;
   }
 
   handleConfig(newValues) {
@@ -159,6 +157,8 @@ export default class TimetableForm extends Component {
   }
   render() {
     return (
+      this.state.events.length !== 0 ?
+        <Calendar events={this.state.events}/> :
         <div className={'timetable'}>
           <form onSubmit={(event) => {this.handleSubmit(event);}}>
             <div className={'form'}>
@@ -182,7 +182,6 @@ export default class TimetableForm extends Component {
             </div>
             <button className={'submit'}>Create</button>
           </form>
-          <Calendar events={this.state.events}/>
         </div>
     );
   }
