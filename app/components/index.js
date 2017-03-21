@@ -51,7 +51,7 @@ export default class Main extends React.Component {
             onRequestClose={() => {this.handleRequestClose();}}>
             <Menu>
               <MenuItem containerElement={<Link to="/create" />} primaryText="Create Timetable"/>
-              <MenuItem containerElement={<Link to="/view" />} primaryText="View Timetables"><Link to="/view"/></MenuItem>
+              <MenuItem containerElement={<Link to="/list" />} primaryText="View Timetables"><Link to="/view"/></MenuItem>
             </Menu>
           </Popover>
           {this.props.children}

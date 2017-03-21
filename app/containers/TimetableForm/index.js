@@ -2,16 +2,20 @@ import Config from 'app/components/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
 import Calendar from 'app/containers/Calendar/';
+import getEvents from './getEvents.js';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-
 import React, { PropTypes, Component } from 'react';
 import { Link, browserHistory } from 'react-router';
 import moment from 'moment';
 
 import styles from './timetableForm.css';
-
-const { string, array, number, object } = PropTypes;
-
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -27,7 +31,9 @@ export default class TimetableForm extends Component {
       duration: 60
     },
     subjects: [],
-    events: []
+    events: [],
+    finished: false,
+    stepIndex: 0,
   };
   handleNameChange(event) {
     this.setState({
@@ -61,12 +67,55 @@ export default class TimetableForm extends Component {
       'exam-start-date': date.format('YYYY-MM-DD')
     });
   }
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleNext = () => {
+    const {stepIndex} = this.state;
+    const newIndex = stepIndex + 1;
+    this.setState({
+      stepIndex: newIndex,
+      finished: newIndex > 1,
+    });
+    console.log(this.state);
+  };
+
+  handlePrev = () => {
+    const {stepIndex} = this.state;
+    if (stepIndex > 0) {
+      const newIndex = stepIndex - 1;
+      this.setState({
+        stepIndex: newIndex,
+        finished: newIndex > 1
+      });
+    }
+  };
+
+  getStepContent(stepIndex) {
+    const configRender = (<Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
+    onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
+    onNameChange={(value) => {this.handleNameChange(value);}}
+    onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
+    onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
+    onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
+    onExamDateChange={(date) => {this.handleExamDateChange(date);}}
+    name={this.state.name}
+    examStartDate={this.state['exam-start-date']}
+    revisionStartDate={this.state['revision-start-date']}
+    sessionDuration={this.state['session-duration']}
+    breakDuration={this.state['break-duration']}
+    rewardDuration={this.state.reward.duration} />);
+    switch (stepIndex) {
+    case 0:
+      return configRender;
+    case 1:
+      return (<div className={'subjects'}>
+        <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+        <SubjectList subjects={this.state.subjects}/>
+      </div>);
+    default:
+      return configRender;
+    }
   }
-  async handleSubmit(event) {
+  async handleCreate() {
     console.log('handleSubmit testing');
-    event.preventDefault();
     fetch('/timetable/create', {
       method: 'POST',
       headers: {
@@ -87,55 +136,15 @@ export default class TimetableForm extends Component {
     }).then((res) => {
       return res.json();
     }).then((json) => {
-      const newEvents = this.createEvents(json);
+      const newEvents = getEvents(json, moment);
+      const { stepIndex } = this.state;
+      const newIndex = stepIndex + 1;
       this.setState({
-        events: newEvents
+        events: newEvents,
+        stepIndex: newIndex,
+        finished: newIndex > 1,
       });
     });
-  }
-
-  createEvents(json) {
-    const timetable = json;
-    const newEvents = [];
-
-    for (const date in timetable) {
-      if (!timetable.hasOwnProperty(date)) continue;
-
-      timetable[date].forEach((period) => {
-        const date = period.dateTime.date.split('-');
-        const startTime = period.dateTime.time;
-        const startDate = new Date(
-          parseInt(date[0]),
-          parseInt(date[1]) - 1,
-          parseInt(date[2]),
-          parseInt(startTime.hour),
-          parseInt(startTime.minute),
-        );
-
-        const temp = {
-          title: period.topicName,
-          start: startDate
-        };
-
-        if (period.type === 'BREAK') {
-          temp.title = 'Break';
-        } else if (period.type === 'REWARD') {
-          temp.title = 'Reward';
-        }
-
-        if (period.type === 'BREAK_DAY') {
-          temp.allDay = true;
-        }
-
-        if (period.type === 'SUBJECT' || 'BREAK') {
-          temp.end = moment(startDate).add(period.periodDuration, 'm').toDate();
-        }
-
-        console.log(temp);
-        newEvents.push(temp);
-      });
-    }
-    return newEvents;
   }
 
   handleConfig(newValues) {
@@ -156,33 +165,50 @@ export default class TimetableForm extends Component {
     });
   }
   render() {
-    return (
-      this.state.events.length !== 0 ?
-        <Calendar events={this.state.events}/> :
-        <div className={'timetable'}>
-          <form onSubmit={(event) => {this.handleSubmit(event);}}>
-            <div className={'form'}>
-              <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
-              onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
-              onNameChange={(value) => {this.handleNameChange(value);}}
-              onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
-              onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
-              onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
-              onExamDateChange={(date) => {this.handleExamDateChange(date);}}
-              name={this.state.name}
-              examStartDate={this.state['exam-start-date']}
-              revisionStartDate={this.state['revision-start-date']}
-              sessionDuration={this.state['session-duration']}
-              breakDuration={this.state['break-duration']}
-              rewardDuration={this.state.reward.duration} />
-              <div className={'subjects'}>
-                <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
-                <SubjectList subjects={this.state.subjects}/>
+    const {finished, stepIndex, events} = this.state;
+    const contentStyle = {margin: '0 16px'};
+    return (<div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper activeStep={stepIndex}>
+          <Step>
+            <StepLabel>Add Configuration</StepLabel>
+          </Step>
+          <Step>
+            <StepLabel>Add Subjects</StepLabel>
+          </Step>
+        </Stepper>
+        <div style={contentStyle}>
+          {finished ? (
+            <div>
+              <Calendar events={events}/>
+              <div style={{marginTop: 12}}>
+                <FlatButton
+                  label="Back"
+                  disabled={stepIndex === 0}
+                  onTouchTap={this.handlePrev}
+                  style={{marginRight: 12}}
+                />
               </div>
             </div>
-            <button className={'submit'}>Create</button>
-          </form>
+          ) : (
+            <div>
+              {this.getStepContent(stepIndex)}
+              <div style={{marginTop: 12}}>
+                <FlatButton
+                  label="Back"
+                  disabled={stepIndex === 0}
+                  onTouchTap={this.handlePrev}
+                  style={{marginRight: 12}}
+                />
+                <RaisedButton
+                  label={stepIndex === 1 ? 'Create' : 'Next'}
+                  primary
+                  onTouchTap={stepIndex === 1 ? () => {this.handleCreate();} : this.handleNext}
+                />
+              </div>
+            </div>
+          )}
         </div>
+      </div>
     );
   }
 }

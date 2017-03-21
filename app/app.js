@@ -19,15 +19,27 @@ injectTapEventPlugin();
 // TODO:10 DynamoDB
 // DEVELOPMENT:0 Basic Styling
 
+// async function getTimetableList() {
+//   fetch('/timetable/list', {
+//     method: 'GET',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     credentials: 'same-origin',
+//   }).then((res) => {
+//     return res.json();
+//   }).then((json) => {
+//     console.log(json);
+//   });
+// }
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path="/" component={Main}>
       <IndexRoute component={Dashboard} />
-      <Route path="create" component={TimetableForm}>
-        <Route path="result/:timetableId" component={Calendar}/>
-      </Route>
-      <Route path="view" component={TimetableList}>
-        <Route path="view/:timetableId"/>
+      <Route path="create" component={TimetableForm} />
+      <Route path="list" component={TimetableList}>
+        <Route path=":timetableName"/>
       </Route>
     </Route>
     <Route path="/login" component={Login}/>
