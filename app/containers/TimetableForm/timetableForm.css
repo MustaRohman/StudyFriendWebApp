@@ -7,16 +7,16 @@
   position:relative;
 }
 
-.timetable {
-  font-family: sans-serif;
-  margin-left: 210px;
-  margin-right: 210px;
-}
-
 .paper {
   width: 830px;
   height: 420px;
   margin: auto;
+}
+
+.timetable {
+  font-family: sans-serif;
+  margin-left: 210px;
+  margin-right: 210px;
 }
 
 .buttons {

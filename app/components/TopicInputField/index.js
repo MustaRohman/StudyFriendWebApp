@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-
+import TextField from 'material-ui/TextField';
+import FlatButton from 'material-ui/FlatButton';
 import styles from './style.css';
 
 export default class TopicInputField extends Component {
@@ -21,7 +22,7 @@ export default class TopicInputField extends Component {
   }
   onAdd(event) {
     event.preventDefault();
-    if (!this.state.topicName || this.state.topicName == ' ') {
+    if (!this.state.topicName || this.state.topicName === ' ') {
       return;
     }
     this.props.listChange(this.state.topicName);
@@ -29,8 +30,17 @@ export default class TopicInputField extends Component {
   render() {
     return (
     <div className={'topicinput'}>
-      <input type="text" value={this.state.topicName} onChange={(event)=> {this.handleChange(event);}}/>
-      <button onClick={(event)=> {this.onAdd(event);}}>+</button>
+      <TextField
+        floatingLabelText="Topic Name"
+        type="text"
+        value={this.state.topicName}
+        onChange={(event)=> {this.handleChange(event);}}
+      />
+    <FlatButton
+      label="Add"
+      primary
+      onTouchTap={(event) => {this.onAdd(event);}}
+      />
     </div>);
   }
 }

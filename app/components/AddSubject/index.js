@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import TopicList from 'app/components/TopicList/';
+import TopicDialogButton from 'app/components/TopicDialogButton/';
 import styles from './style.css';
 
 
@@ -51,10 +51,7 @@ export default class AddSubject extends React.Component {
                           }} type="number"/>
                       </label>
                     </div>
-                  </div>
-                  <div className={styles.right}>
-                    <h3>Topics</h3>
-                    <TopicList addTopic={(topic) => {
+                    <TopicDialogButton addTopic={(topic) => {
                       this.handleAddTopic(topic);
                     }}/>
                   </div>

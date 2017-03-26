@@ -1,4 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import IconButton from 'material-ui/IconButton';
+import { ListItem } from 'material-ui/List';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 export default class TopicListItem extends Component {
   static propTypes = {
@@ -13,9 +16,11 @@ export default class TopicListItem extends Component {
 
   render() {
     return (
-      <div>
-        <p>{this.props.name} <span><button onClick={(event) => {this.onDelete(event);}}>x</button></span></p>
-      </div>
+      <ListItem
+        primaryText={this.props.name}
+        rightIconButton={
+          <IconButton onTouchTap={(event) => {this.onDelete(event);}}><NavigationClose /></IconButton>
+        } />
     );
   }
 }

@@ -74,7 +74,6 @@ export default class TimetableForm extends Component {
       stepIndex: newIndex,
       finished: newIndex > 1,
     });
-    console.log(this.state);
   };
 
   handlePrev = () => {
@@ -110,10 +109,14 @@ export default class TimetableForm extends Component {
     case 0:
       return configRender;
     case 1:
-      return (<div className={'subjects'}>
-        <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
-        <SubjectList subjects={this.state.subjects}/>
-      </div>);
+      return (
+        <Paper className={'paper'} zDepth={1}>
+          <div className={'subjects'}>
+            <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
+            <SubjectList subjects={this.state.subjects}/>
+          </div>
+      </Paper>
+      );
     default:
       return configRender;
     }
