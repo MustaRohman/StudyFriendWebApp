@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import Datepicker from 'app/components/Datepicker/';
+import TextField from 'material-ui/TextField';
 import _ from 'underscore';
 const { number, string, func } = PropTypes;
 
@@ -27,12 +28,15 @@ export default class Config extends React.Component {
     return (
       <div className={'config'}>
         <h2>Configuration</h2>
-        <label>
-          <p>Timetable Name:</p>
-          <input type="text"  value={this.props.name} name="name" onChange={(event) => {this.props.onNameChange(event);}}/>
-        </label>
+          <TextField
+          hintText="Timetable Name"
+          floatingLabelText="Timetable Name"
+          floatingLabelFixed
+          type="text"
+          onChange={(event) => {this.props.onNameChange(event);}}
+          value={this.props.name} name="name"
+          /><br />
         <div className={'dates'}>
-          <h3>Dates</h3>
           <div className={'left'}>
             <label>
               <p>Revision Start Date:</p>

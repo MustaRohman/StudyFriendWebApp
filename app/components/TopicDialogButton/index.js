@@ -75,7 +75,7 @@ export default class TopicList extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Manage Subject Topics" onTouchTap={this.handleOpen} />
+        <RaisedButton style={{marginTop: 20}} label="Manage Subject Topics" onTouchTap={this.handleOpen} />
         <Dialog
           title="Add Topics for Subject"
           actions={actions}
