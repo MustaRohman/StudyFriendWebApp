@@ -10,6 +10,7 @@ import config from './webpack.config.js';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import bcrypt from 'bcrypt';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
@@ -39,7 +40,9 @@ app.use( passport.session());
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  bcrypt.hash(user.id, 10, function(err, hash) {
+    done(null, hash);
+  });
 });
 
 passport.deserializeUser((obj, done) => {

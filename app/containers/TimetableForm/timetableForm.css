@@ -1,7 +1,31 @@
+
+.parent {
+  width: 900px;
+  max-width: 700;
+  height: 560px;
+  margin: auto;
+  position:relative;
+}
+
 .timetable {
   font-family: sans-serif;
   margin-left: 210px;
   margin-right: 210px;
+}
+
+.paper {
+  width: 830px;
+  height: 420px;
+  margin: auto;
+}
+
+.buttons {
+  margin-top: 12px;
+  margin-right: 25px;
+  position: absolute;
+    bottom: 0;
+    right: 0;
+
 }
 
 .submit {

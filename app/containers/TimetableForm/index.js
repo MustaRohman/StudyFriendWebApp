@@ -89,19 +89,23 @@ export default class TimetableForm extends Component {
   };
 
   getStepContent(stepIndex) {
-    const configRender = (<Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
-    onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
-    onNameChange={(value) => {this.handleNameChange(value);}}
-    onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
-    onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
-    onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
-    onExamDateChange={(date) => {this.handleExamDateChange(date);}}
-    name={this.state.name}
-    examStartDate={this.state['exam-start-date']}
-    revisionStartDate={this.state['revision-start-date']}
-    sessionDuration={this.state['session-duration']}
-    breakDuration={this.state['break-duration']}
-    rewardDuration={this.state.reward.duration} />);
+    const configRender = (
+      <Paper className={'paper'} zDepth={1}>
+        <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
+          onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
+          onNameChange={(value) => {this.handleNameChange(value);}}
+          onBreakDurationChange={(value) => {this.handleBreakDurationChange(value);}}
+          onRewardDurationChange={(value) => {this.handleRewardDuration(value);}}
+          onRevisionDateChange={(date) => {this.handleRevisionDateChange(date);}}
+          onExamDateChange={(date) => {this.handleExamDateChange(date);}}
+          name={this.state.name}
+          examStartDate={this.state['exam-start-date']}
+          revisionStartDate={this.state['revision-start-date']}
+          sessionDuration={this.state['session-duration']}
+          breakDuration={this.state['break-duration']}
+          rewardDuration={this.state.reward.duration} />
+      </Paper>
+    );
     switch (stepIndex) {
     case 0:
       return configRender;
@@ -167,7 +171,7 @@ export default class TimetableForm extends Component {
   render() {
     const {finished, stepIndex, events} = this.state;
     const contentStyle = {margin: '0 16px'};
-    return (<div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+    return (<div className={'parent'}>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Add Configuration</StepLabel>
@@ -192,7 +196,7 @@ export default class TimetableForm extends Component {
           ) : (
             <div>
               {this.getStepContent(stepIndex)}
-              <div style={{marginTop: 12}}>
+              <div className={'buttons'}>
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
