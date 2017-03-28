@@ -29,15 +29,11 @@ const checkAuthentication = (nextState, replace, callback) => {
   }).then((res) => {
     return res.text();
   }).then((text) => {
-    console.log(text);
     if (text !== 'true') {
-      console.log('Redirecting..');
-      console.log(nextState.location.pathname);
       replace({
         pathname: '/login',
         state: { nextPathname: nextState.location.pathname }
       });
-      console.log('Redirected!');
     }
     callback();
   });
