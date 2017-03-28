@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import styles from './style.css';
 
 
-export default class TopicDialogButton extends React.Component {
+export default class TopicList extends React.Component {
   static propTypes = {
     addTopic: PropTypes.func.isRequired
   }
@@ -75,7 +75,7 @@ export default class TopicDialogButton extends React.Component {
 
     return (
       <div>
-        <RaisedButton label="Manage Topics" onTouchTap={this.handleOpen} />
+        <RaisedButton style={{marginTop: 20}} label="Manage Subject Topics" onTouchTap={this.handleOpen} />
         <Dialog
           title="Add Topics for Subject"
           actions={actions}

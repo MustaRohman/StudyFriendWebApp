@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import TopicList from 'app/components/TopicList/';
+import TopicDialogButton from 'app/components/TopicDialogButton/';
+import RaisedButton from 'material-ui/RaisedButton';
 import styles from './style.css';
 
 
@@ -51,18 +52,14 @@ export default class AddSubject extends React.Component {
                           }} type="number"/>
                       </label>
                     </div>
-                  </div>
-                  <div className={styles.right}>
-                    <h3>Topics</h3>
-                    <TopicList addTopic={(topic) => {
+                    <TopicDialogButton style={{marginTop: 20}} addTopic={(topic) => {
                       this.handleAddTopic(topic);
                     }}/>
+                  <RaisedButton style={{marginTop: 20}} label="Add Subject" secondary onTouchTap={(event) => {
+                    this.handleAddSubject(event);
+                  }}/>
                   </div>
                 </div>
-
-                <button onClick={(event) => {
-                  this.handleAddSubject(event);
-                }}>Add Subject</button>
             </div>
     );
   }

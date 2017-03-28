@@ -35,6 +35,10 @@
     {
       "name": "COMPLETE",
       "hidden": false
+    },
+    {
+      "name": "COMEPLETE",
+      "hidden": false
     }
   ],
   "marked": {

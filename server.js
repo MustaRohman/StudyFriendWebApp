@@ -8,9 +8,9 @@ import express from 'express';
 import fetch from 'node-fetch';
 import config from './webpack.config.js';
 import passport from 'passport';
-import util from 'util';
 import cookieParser from 'cookie-parser';
-const session = require( 'express-session' );
+import session from 'express-session';
+import bcrypt from 'bcrypt';
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com';
 const GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
@@ -40,7 +40,9 @@ app.use( passport.session());
 
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  bcrypt.hash(user.id, 10, function(err, hash) {
+    done(null, hash);
+  });
 });
 
 passport.deserializeUser((obj, done) => {
@@ -85,7 +87,23 @@ app.post('/timetable/create', async (req, res) => {
   }).then((response) => {
     return response.json();
   }).then((json) =>{
-    console.log(json);
+    return res.json(json);
+  });
+});
+
+app.post('/timetable/list', async (req, res) => {
+  // console.log(JSON.stringify(req.body));
+  console.log('User');
+  console.log(req.user);
+  fetch(`${API_URL}list`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'UserId': req.user
+    }
+  }).then((response) => {
+    return response.json();
+  }).then((json) =>{
     return res.json(json);
   });
 });
