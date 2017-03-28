@@ -122,6 +122,9 @@ export default class TimetableForm extends Component {
     }
   }
   async handleCreate() {
+    if (this.state['exam-start-date'].isSame(this.state['revision-start-date'])) {
+      alert('');
+    }
     console.log('handleSubmit testing');
     fetch('/timetable/create', {
       method: 'POST',

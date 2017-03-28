@@ -19,25 +19,35 @@ injectTapEventPlugin();
 // TODO: Add ExamStart to events for Calendar
 // DEVELOPMENT:0 Basic Styling
 
-// async function getTimetableList() {
-//   fetch('/timetable/list', {
-//     method: 'GET',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     credentials: 'same-origin',
-//   }).then((res) => {
-//     return res.json();
-//   }).then((json) => {
-//     console.log(json);
-//   });
-// }
+const checkAuthentication = (nextState, replace, callback) => {
+  fetch('/user/authenticate', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: 'same-origin'
+  }).then((res) => {
+    return res.text();
+  }).then((text) => {
+    console.log(text);
+    if (text !== 'true') {
+      console.log('Redirecting..');
+      console.log(nextState.location.pathname);
+      replace({
+        pathname: '/login',
+        state: { nextPathname: nextState.location.pathname }
+      });
+      console.log('Redirected!');
+    }
+    callback();
+  });
+};
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path="/" component={Main}>
+    <Route path="/" component={Main} onEnter={checkAuthentication}>
       <IndexRoute component={Dashboard} />
-      <Route path="create" component={TimetableForm} />
+      <Route path="create"  component={TimetableForm} />
       <Route path="list" component={TimetableList}>
         <Route path=":timetableName"/>
       </Route>

@@ -101,6 +101,21 @@ app.post('/timetable/create', async (req, res) => {
   });
 });
 
+const ensureAuthenticated = (req, res) => {
+  console.log('Testing authentication');
+  if (req.isAuthenticated()) {
+    console.log('Is Authenticated');
+    return true;
+  }
+  console.log('Is not Authenticated');
+  return false;
+};
+
+app.get('/user/authenticate', (req, res) => {
+  console.log('authenticating user');
+  return res.send(ensureAuthenticated(req, res));
+});
+
 app.post('/timetable/list', async (req, res) => {
   // console.log(JSON.stringify(req.body));
   console.log('User');
@@ -146,15 +161,6 @@ if (isDeveloping) {
   });
 }
 
-const ensureAuthenticated = (req, res, next) => {
-  console.log('Testing authentication');
-  if (req.isAuthenticated()) {
-    console.log('Is Authenticated');
-    return next();
-  }
-  console.log('Is not Authenticated');
-  return res.redirect('/login');
-};
 
 const server = app.listen(3000, (err) => {
   if (err) {
