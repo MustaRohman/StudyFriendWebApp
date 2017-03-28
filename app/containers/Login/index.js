@@ -31,7 +31,7 @@ export default class  Login extends Component {
             <div>
               <h1>StudyFriend</h1>
               <h2>Welcome to the dynamic revision planner!</h2>
-              <a href="/auth/google">Sign in with Google</a>
+              <a href="/auth/amazon">Sign in with Amazon</a>
             </div>
            </Paper>
       </MuiThemeProvider>

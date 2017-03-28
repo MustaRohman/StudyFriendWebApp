@@ -11,9 +11,11 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const GOOGLE_CLIENT_ID      = '375688671713-nlf5vnm3i77latudv441or2nfiu0n9ok.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET  = 'maGlAzgn92s15DnADRjIKgPh';
+import { Strategy as AmazonStrategy } from 'passport-amazon';
+
+const AMAZON_CLIENT_ID = 'amzn1.application-oa2-client.635127825c9448259dcee2ab24efd9c8';
+const AMAZON_CLIENT_SECRET = '897446d0b6e288127f89a84a5c40a90efcdf1128f778f79d48bef95e787420d3';
+
 
 require('dotenv').config();
 const app = express();
@@ -40,7 +42,7 @@ app.use( passport.session());
 
 
 passport.serializeUser((user, done) => {
-  bcrypt.hash(user.id, 10, function(err, hash) {
+  bcrypt.hash(user.id, 10, (err, hash) => {
     done(null, hash);
   });
 });
@@ -49,24 +51,32 @@ passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
-passport.use(new GoogleStrategy({
-  clientID: GOOGLE_CLIENT_ID,
-  clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/google/callback'
+passport.use(new AmazonStrategy({
+  clientID: AMAZON_CLIENT_ID,
+  clientSecret: AMAZON_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/auth/amazon/callback'
 },
-  function(token, tokenSecret, profile, done) {
-    return done(null, profile);
+  (accessToken, refreshToken, profile, done) => {
+    process.nextTick(() => {
+      return done(null, profile);
+    });
   }
 ));
 
-app.get('/auth/google',
-  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
 
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
+app.get('/auth/amazon',
+    passport.authenticate('amazon', { scope: ['profile'] }),
+    (req, res) => {
+      // The request will be redirected to Amazon for authentication, so this
+      // function will not be called.
+    });
+
+app.get('/auth/amazon/callback',
+    passport.authenticate('amazon', { failureRedirect: '/login' }),
     (req, res) => {
       res.redirect('/create');
     });
+
 
 app.get('/logout', (req, res) => {
   req.logout();
