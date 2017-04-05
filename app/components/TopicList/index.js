@@ -5,7 +5,6 @@ import { List } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import styles from './style.css';
 
 
 export default class TopicDialogButton extends React.Component {

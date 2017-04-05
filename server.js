@@ -42,9 +42,8 @@ app.use( passport.session());
 
 
 passport.serializeUser((user, done) => {
-  bcrypt.hash(user.id, 10, (err, hash) => {
-    done(null, hash);
-  });
+  console.log(user);
+  done(null, user.id);
 });
 
 passport.deserializeUser((obj, done) => {
@@ -58,6 +57,7 @@ passport.use(new AmazonStrategy({
 },
   (accessToken, refreshToken, profile, done) => {
     process.nextTick(() => {
+      console.log('Access Token: ' + accessToken);
       return done(null, profile);
     });
   }
