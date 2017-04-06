@@ -11,7 +11,6 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
-import { Strategy as AmazonStrategy } from 'passport-amazon';
 
 const AMAZON_CLIENT_ID = 'amzn1.application-oa2-client.635127825c9448259dcee2ab24efd9c8';
 const AMAZON_CLIENT_SECRET = '897446d0b6e288127f89a84a5c40a90efcdf1128f778f79d48bef95e787420d3';
@@ -62,12 +61,11 @@ app.get('/code', (req, res) => {
 
 app.post('/timetable/create', async (req, res) => {
   console.log('User');
-  console.log(req.user);
   fetch(`${API_URL}create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'UserId': req.user
+      'UserId': app.locals.userId
     },
     body: JSON.stringify(req.body)
   }).then((response) => {
@@ -77,15 +75,15 @@ app.post('/timetable/create', async (req, res) => {
   });
 });
 
-const ensureAuthenticated = (req, res) => {
-  console.log('Testing authentication');
-  if (req.isAuthenticated()) {
-    console.log('Is Authenticated');
-    return true;
-  }
-  console.log('Is not Authenticated');
-  return false;
-};
+// const ensureAuthenticated = (req, res) => {
+//   console.log('Testing authentication');
+//   if (req.isAuthenticated()) {
+//     console.log('Is Authenticated');
+//     return true;
+//   }
+//   console.log('Is not Authenticated');
+//   return false;
+// };
 
 app.get('/user/authenticate', (req, res) => {
   console.log('authenticating user');
