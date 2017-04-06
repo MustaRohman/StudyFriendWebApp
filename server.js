@@ -50,10 +50,10 @@ app.get('/code', (req, res) => {
   }).then((text) => {
     console.log('Returning text');
     if (text !== 'Unable to get code') {
-      console.log(app.locals.userId);
       app.locals.userId = text;
       return res.send(true);
     }
+    console.log(text);
     return res.send(false);
   }).catch((err) => {
     console.log(err);
@@ -61,7 +61,6 @@ app.get('/code', (req, res) => {
 });
 
 app.post('/timetable/create', async (req, res) => {
-  // console.log(JSON.stringify(req.body));
   console.log('User');
   console.log(req.user);
   fetch(`${API_URL}create`, {

@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
+import { browserHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -28,8 +31,10 @@ export default class  Login extends Component {
   }
 
   state = {
-    code: ''
+    code: '',
+    open: false,
   }
+
 
   async handleLogin(event) {
     fetch('/code', {
@@ -38,6 +43,20 @@ export default class  Login extends Component {
         'Content-Type': 'application/json',
         'Code': this.state.code
       },
+    }).then((response) => {
+      return response.text();
+    }).then((text) => {
+      if (text === 'true') {
+        console.log('Correct code');
+        browserHistory.push('/create');
+      } else {
+        console.log('Incorrect code');
+        this.setState({
+          open: true
+        });
+      }
+    }).catch((err) => {
+      console.log('Error');
     });
   }
 
@@ -54,8 +73,22 @@ export default class  Login extends Component {
     document.body.style.backgroundColor = null;
   }
 
+  handleOpen = () => {
+    this.setState({open: true});
+  };
+
+  handleClose = () => {
+    this.setState({open: false});
+  };
 
   render() {
+    const actions = [
+      <FlatButton
+        label="Ok"
+        primary
+        onTouchTap={this.handleClose}
+      />,
+    ];
     return (
       <MuiThemeProvider>
           <Paper className={'login'} zDepth={5}>
@@ -68,6 +101,13 @@ export default class  Login extends Component {
                   onChange={(event) => {this.handleChange(event);}} />
                 <RaisedButton label="Enter" fullWidth
                   primary onTouchTap={(event) => {this.handleLogin(event);}}/>
+                <Dialog
+                  actions={actions}
+                  modal={false}
+                  open={this.state.open}
+                  onRequestClose={this.handleClose}>
+                  Incorrect Code. Please check your Alexa mobile app
+                </Dialog>
             </div>
            </Paper>
       </MuiThemeProvider>
