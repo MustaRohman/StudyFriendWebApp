@@ -29,7 +29,7 @@ app.use( bodyParser.urlencoded({
   extended: true
 }));
 app.use(session({
-  secret: 'hello'
+  secret: 'sssshhhshs'
 }));
 app.use(function(req, res, next) {
   if (!req.session) {
@@ -37,50 +37,27 @@ app.use(function(req, res, next) {
   }
   next(); // otherwise continue
 });
-app.use( passport.initialize());
-app.use( passport.session());
 
-
-passport.serializeUser((user, done) => {
-  console.log(user);
-  done(null, user.id);
-});
-
-passport.deserializeUser((obj, done) => {
-  done(null, obj);
-});
-
-passport.use(new AmazonStrategy({
-  clientID: AMAZON_CLIENT_ID,
-  clientSecret: AMAZON_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/auth/amazon/callback'
-},
-  (accessToken, refreshToken, profile, done) => {
-    process.nextTick(() => {
-      console.log('Access Token: ' + accessToken);
-      return done(null, profile);
-    });
-  }
-));
-
-
-app.get('/auth/amazon',
-    passport.authenticate('amazon', { scope: ['profile'] }),
-    (req, res) => {
-      // The request will be redirected to Amazon for authentication, so this
-      // function will not be called.
-    });
-
-app.get('/auth/amazon/callback',
-    passport.authenticate('amazon', { failureRedirect: '/login' }),
-    (req, res) => {
-      res.redirect('/create');
-    });
-
-
-app.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/login');
+app.get('/code', (req, res) => {
+  fetch(`${API_URL}login`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Code': req.headers.code
+    }
+  }).then((response) => {
+    return response.text();
+  }).then((text) => {
+    console.log('Returning text');
+    if (text !== 'Unable to get code') {
+      console.log(app.locals.userId);
+      app.locals.userId = text;
+      return res.send(true);
+    }
+    return res.send(false);
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
 app.post('/timetable/create', async (req, res) => {
@@ -113,7 +90,12 @@ const ensureAuthenticated = (req, res) => {
 
 app.get('/user/authenticate', (req, res) => {
   console.log('authenticating user');
-  return res.send(ensureAuthenticated(req, res));
+  console.log(app.locals.userId);
+  if (typeof app.locals.userId === 'undefined') {
+    console.log('undef');
+    return res.send(false);
+  }
+  return res.send(true);
 });
 
 app.post('/timetable/list', async (req, res) => {

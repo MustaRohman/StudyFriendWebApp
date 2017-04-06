@@ -22,13 +22,11 @@ injectTapEventPlugin();
 const checkAuthentication = (nextState, replace, callback) => {
   fetch('/user/authenticate', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     credentials: 'same-origin'
   }).then((res) => {
     return res.text();
   }).then((text) => {
+    console.log(text);
     if (text !== 'true') {
       replace({
         pathname: '/login',
@@ -36,12 +34,14 @@ const checkAuthentication = (nextState, replace, callback) => {
       });
     }
     callback();
+  }).catch((err) => {
+    console.log('Error');
   });
 };
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path="/" component={Main} onEnter={checkAuthentication}>
+    <Route path="/" component={Main} onEnter={checkAuthentication} >
       <IndexRoute component={Dashboard} />
       <Route path="create"  component={TimetableForm} />
       <Route path="list" component={TimetableList}>
