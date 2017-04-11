@@ -5,7 +5,7 @@ import Main from 'app/components/index.js';
 import TimetableForm from 'app/containers/TimetableForm/';
 import Dashboard from 'app/containers/Dashboard/';
 import TimetableList from 'app/containers/TimetableList/';
-import Login from 'app/containers/Login/';
+import Login from 'app/components/Login/';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
