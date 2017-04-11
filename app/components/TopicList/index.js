@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import TopicInputField from 'app/components/TopicInputField/';
-import TopicListItem from 'app/components/TopicListItem/';
+import ListItem from 'app/components/ListItem/';
 import { List } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -68,7 +68,7 @@ export default class TopicDialogButton extends React.Component {
       />,
     ];
     const listItems = this.state.topicList.map((name, index) =>
-        <TopicListItem name={name} key={index}
+        <ListItem name={name} key={index}
           itemDelete={(item)=> {this.handleItemDelete(item);}}/>
         );
 

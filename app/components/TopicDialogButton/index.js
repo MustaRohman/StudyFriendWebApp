@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import TopicInputField from 'app/components/TopicInputField/';
-import TopicListItem from 'app/components/TopicListItem/';
+import ListItem from 'app/components/ListItem/';
 import { List } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,7 +10,8 @@ import styles from './style.css';
 
 export default class TopicList extends React.Component {
   static propTypes = {
-    addTopic: PropTypes.func.isRequired
+    addTopic: PropTypes.func.isRequired,
+    topics: PropTypes.array.isRequired
   }
 
   constructor(props) {
@@ -25,14 +26,11 @@ export default class TopicList extends React.Component {
     function hasItem(name) {
       return item === name;
     }
-    if (this.state.topicList.some(hasItem)) {
+    if (this.props.topics.some(hasItem)) {
       return;
     }
-    const newList = this.state.topicList.slice();
+    const newList = this.props.topics.slice();
     newList.push(item);
-    this.setState({
-      topicList: newList
-    });
     this.props.addTopic(newList);
   }
 
@@ -68,8 +66,8 @@ export default class TopicList extends React.Component {
         onTouchTap={this.handleClose}
       />,
     ];
-    const listItems = this.state.topicList.map((name, index) =>
-        <TopicListItem name={name} key={index}
+    const listItems = this.props.topics.map((name, index) =>
+        <ListItem name={name} key={index}
           itemDelete={(item)=> {this.handleItemDelete(item);}}/>
         );
 

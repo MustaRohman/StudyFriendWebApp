@@ -3,7 +3,7 @@ import IconButton from 'material-ui/IconButton';
 import { ListItem } from 'material-ui/List';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
-export default class TopicListItem extends Component {
+export default class CustomListItem extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     itemDelete: PropTypes.func.isRequired
