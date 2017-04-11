@@ -89,7 +89,7 @@ export default class TimetableForm extends Component {
 
   getStepContent(stepIndex) {
     const configRender = (
-      <Paper className={'paper'} zDepth={1}>
+      <Paper className={styles.paper} zDepth={1}>
         <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
           onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
           onNameChange={(value) => {this.handleNameChange(value);}}
@@ -110,8 +110,8 @@ export default class TimetableForm extends Component {
       return configRender;
     case 1:
       return (
-        <Paper className={'paper'} zDepth={1}>
-          <div className={'subjects'}>
+        <Paper className={styles.paper} zDepth={1}>
+          <div className={styles.subjects}>
             <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
             <SubjectList subjects={this.state.subjects}/>
           </div>

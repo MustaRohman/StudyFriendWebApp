@@ -38,7 +38,7 @@ export default class Main extends React.Component {
       <MuiThemeProvider>
         <div>
           <AppBar
-            className={'menubar'}
+            className={styles.menubar}
             title={<span style={styles.title}>StudyFriend</span>}
             onLeftIconButtonTouchTap={(event) => {this.handleTouchTap(event);}}
             iconElementRight={<FlatButton label="Logout" href="/logout" />}
