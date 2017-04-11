@@ -6,8 +6,8 @@
     "local": "webpack && nodemon server.js --exec babel-node",
     "build": "./node_modules/.bin/babel server.js -d dist",
     "serve": "node dist/server.js",
-    "postinstall": "",
-    "start": "babel-node server.js —presets es2015,stage-2",
+    "start": "node server",
+    "postinstall": "node deploy",
     "server:watch": "nodemon server.js --exec babel-node --presets es2015,stage-0",
     "test": "find . -path ./node_modules -prune -o -name '*.test.js' ! -path '*/node_modules/*' | xargs mocha --compilers js:babel-register --require test.setup --timeout 15000"
   },
@@ -83,7 +83,8 @@
     "css-modules-require-hook": "^4.0.5",
     "dirty-chai": "^1.2.2",
     "enzyme": "^2.7.1",
-    "extract-text-webpack-plugin": "^2.0.0",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "html-webpack-plugin": "^1.6.1",
     "jsdom": "^9.11.0",
     "mocha": "^3.1.2",
     "nodemon": "^1.11.0",
@@ -91,7 +92,7 @@
     "sinon": "^1.17.6",
     "sinon-as-promised": "^4.0.2",
     "sinon-chai": "^2.8.0",
-    "stats-webpack-plugin": "^0.6.0",
+    "stats-webpack-plugin": "^0.2.1",
     "supertest": "^3.0.0",
     "webpack": "^1.12.2"
   }
