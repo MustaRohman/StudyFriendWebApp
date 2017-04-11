@@ -14,6 +14,7 @@ require('dotenv').config();
 const app = express();
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const { API_URL } = process.env;
+const PORT = process.env.port || 3000;
 
 app.use( cookieParser());
 app.use( bodyParser.json());
@@ -108,12 +109,12 @@ if (isDeveloping) {
   });
 }
 
-const server = app.listen(3000, (err) => {
+const server = app.listen(PORT, (err) => {
   if (err) {
     console.error(err);
   }
 
-  console.log('Listening at http://localhost:3000/');
+  console.log('Listening at ' + PORT);
 });
 
 module.exports = server;
