@@ -1,4 +1,4 @@
-import Config from 'app/components/Config/';
+import Config from 'app/containers/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
 import Calendar from 'app/containers/Calendar/';
