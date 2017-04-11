@@ -3,8 +3,6 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "local": "webpack && nodemon server.js --exec babel-node",
-    "build": "./node_modules/.bin/babel server.js -d dist",
     "serve": "node dist/server.js",
     "start": "node server",
     "postinstall": "node deploy",
