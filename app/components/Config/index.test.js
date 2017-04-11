@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
-
+import TextField from 'material-ui/TextField';
 import Config from './index';
 import Datepicker from 'app/components/Datepicker';
 
@@ -24,7 +24,7 @@ describe('<Config />', () => {
     />);
     expect(wrapper.find(Datepicker)).to.have.length(2);
   });
-  it('renders one input[type=text]', () => {
+  it('renders one <TextField />', () => {
     const testing = () => {};
     const wrapper = shallow(<Config onNewConfig={testing}
     onSessionDurationChange={testing}
@@ -40,7 +40,7 @@ describe('<Config />', () => {
     breakDuration={15}
     rewardDuration={75}
     />);
-    expect(wrapper.find('input[type="text"]')).to.have.length(1);
+    expect(wrapper.find(TextField)).to.have.length(1);
   });
   it('renders 2 input[type=range]', () => {
     const testing = () => {};

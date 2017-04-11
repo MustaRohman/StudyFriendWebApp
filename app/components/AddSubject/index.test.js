@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import moment from 'moment';
 
 import AddSubject from './index';
-import TopicList from 'app/components/TopicList';
+import TopicDialogButton from 'app/components/TopicDialogButton';
 
 describe('<AddSubject />', () => {
   it('renders 1 input[type=text]', () => {
@@ -16,9 +16,9 @@ describe('<AddSubject />', () => {
     const wrapper = shallow(<AddSubject addSubject={testing}/>);
     expect(wrapper.find('input[type="number"]')).to.have.length(1);
   });
-  it('renders 1 <TopicList />', () => {
+  it('renders 1 <TopicDialogButton />', () => {
     const testing = () => {};
     const wrapper = shallow(<AddSubject addSubject={testing}/>);
-    expect(wrapper.find(TopicList)).to.have.length(1);
+    expect(wrapper.find(TopicDialogButton)).to.have.length(1);
   });
 });
