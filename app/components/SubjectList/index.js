@@ -10,20 +10,10 @@ export default class SubjectList extends React.Component {
       <li key={index}><h4>{subject.name}</h4></li>
     );
     return (
-      <div className={'subjectlist'}>
+      <div className={styles.subjectlist}>
         <h3>Subject List</h3>
         <ul>{listItems}</ul>
       </div>
     );
   }
 }
-
-// export const YourFace = props => {
-//   return (
-//       <div>lol</div>
-//   );
-// };
-//
-// YourFace.PropTypes = {
-//
-// }
