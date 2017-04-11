@@ -22,7 +22,9 @@ app.use( bodyParser.urlencoded({
   extended: true
 }));
 app.use(session({
-  secret: 'sssshhhshs'
+  secret: 'sssshhhshs',
+  resave: false,
+  saveUninitialized: true,
 }));
 app.use(function(req, res, next) {
   if (!req.session) {
@@ -109,7 +111,7 @@ if (isDeveloping) {
   });
 }
 
-const server = app.listen(PORT, (err) => {
+const server = app.listen(process.env.PORT || 3000, (err) => {
   if (err) {
     console.error(err);
   }
