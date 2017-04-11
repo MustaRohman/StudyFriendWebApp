@@ -91,7 +91,7 @@ export default class  Login extends Component {
     ];
     return (
       <MuiThemeProvider>
-          <Paper className={'login'} zDepth={5}>
+          <Paper className={styles.login} zDepth={5}>
             <div>
               <h1>StudyFriend</h1>
               <h2>Dynamic Revision Planner for Amazon Echo</h2>
