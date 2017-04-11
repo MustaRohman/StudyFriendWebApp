@@ -9,7 +9,7 @@ const StatsPlugin = require('stats-webpack-plugin');
 module.exports = {
   entry: [
     'babel-polyfill',
-    path.join(__dirname, 'app/main.js')
+    path.join(__dirname, 'app/app.js')
   ],
   output: {
     path: path.join(__dirname, '/dist/'),
@@ -17,7 +17,6 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'app/index.tpl.html',
       inject: 'body',
@@ -52,7 +51,7 @@ module.exports = {
       loader: 'json'
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('style', 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss')
+      loader: ExtractTextPlugin.extract({fallback: 'style', use: 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss'})
     }]
   },
   postcss: [

@@ -19,9 +19,11 @@ module.exports = (json, moment) => {
     };
 
     if (period.type === 'BREAK') {
-      temp.title = 'Break';
+      return;
+      // temp.title = 'Break';
     } else if (period.type === 'REWARD') {
-      temp.title = 'Reward';
+      return;
+      // temp.title = 'Reward';
     }
 
     if (period.type === 'BREAK_DAY') {

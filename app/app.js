@@ -14,17 +14,14 @@ injectTapEventPlugin();
 // COMEPLETE:20 GET request to timetable-api
 // COMEPLETE:10 Display JSON response
 // COMEPLETE:0 Display in calendar Component
-// TODO:0 Log in
-// TODO:10 DynamoDB
-// TODO: Add ExamStart to events for Calendar
-// DEVELOPMENT:0 Basic Styling
+// COMPLETE:20 Log in
+// COMPLETE:0 DynamoDB
+// TODO:0 Add ExamStart to events for Calendar
+// COMPLETE:10 Basic Styling
 
 const checkAuthentication = (nextState, replace, callback) => {
   fetch('/user/authenticate', {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
     credentials: 'same-origin'
   }).then((res) => {
     return res.text();
@@ -36,12 +33,14 @@ const checkAuthentication = (nextState, replace, callback) => {
       });
     }
     callback();
+  }).catch((err) => {
+    console.log(err);
   });
 };
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path="/" component={Main} onEnter={checkAuthentication}>
+    <Route path="/" component={Main} onEnter={checkAuthentication} >
       <IndexRoute component={Dashboard} />
       <Route path="create"  component={TimetableForm} />
       <Route path="list" component={TimetableList}>

@@ -12,12 +12,18 @@ describe('<TimetableForm />', () => {
     const wrapper = shallow(<TimetableForm />);
     expect(wrapper.find(Config)).to.have.length(1);
   });
-  it('renders one <AddSubject /> component', () => {
+  it('renders one <AddSubject /> component when on second page of stepper', () => {
     const wrapper = shallow(<TimetableForm />);
+    wrapper.setState({
+      stepIndex: 1
+    });
     expect(wrapper.find(AddSubject)).to.have.length(1);
   });
-  it('renders one <SubjectList /> component', () => {
+  it('renders one <SubjectList /> componentwhen on second page of stepper', () => {
     const wrapper = shallow(<TimetableForm />);
+    wrapper.setState({
+      stepIndex: 1
+    });
     expect(wrapper.find(SubjectList)).to.have.length(1);
   });
   it('passes state to <Config />', () => {
