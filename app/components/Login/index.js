@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -33,10 +34,14 @@ export default class  Login extends Component {
   state = {
     code: '',
     open: false,
+    loading: false
   }
 
 
   async handleLogin(event) {
+    this.setState({
+      loading: true
+    });
     fetch('/code', {
       method: 'GET',
       headers: {
@@ -52,7 +57,8 @@ export default class  Login extends Component {
       } else {
         console.log('Incorrect code');
         this.setState({
-          open: true
+          open: true,
+          loading: false
         });
       }
     }).catch((err) => {
@@ -91,25 +97,28 @@ export default class  Login extends Component {
     ];
     return (
       <MuiThemeProvider>
-          <Paper className={styles.login} zDepth={5}>
-            <div>
-              <h1>StudyFriend</h1>
-              <h2>Dynamic Revision Planner for Amazon Echo</h2>
-                <TextField
-                  hintText="Enter Code Here"
-                  underlineStyle={styles2.underlineStyle} value={this.state.code}
-                  onChange={(event) => {this.handleChange(event);}} />
-                <RaisedButton label="Enter" fullWidth
-                  primary onTouchTap={(event) => {this.handleLogin(event);}}/>
-                <Dialog
-                  actions={actions}
-                  modal={false}
-                  open={this.state.open}
-                  onRequestClose={this.handleClose}>
-                  Incorrect Code. Please check your Alexa mobile app
-                </Dialog>
-            </div>
-           </Paper>
+        {this.state.loading ?
+          <CircularProgress className={styles.login} size={200} thickness={9} /> :
+            <Paper className={styles.login} zDepth={5}>
+              <div>
+                <h1>StudyFriend</h1>
+                <h2>Dynamic Revision Planner for Amazon Echo</h2>
+                  <TextField
+                    hintText="Enter Code Here"
+                    underlineStyle={styles2.underlineStyle} value={this.state.code}
+                    onChange={(event) => {this.handleChange(event);}} />
+                  <RaisedButton label="Enter" fullWidth
+                    primary onTouchTap={(event) => {this.handleLogin(event);}}/>
+                  <Dialog
+                    actions={actions}
+                    modal={false}
+                    open={this.state.open}
+                    onRequestClose={this.handleClose}>
+                    Incorrect Code. Please check your Alexa mobile app
+                  </Dialog>
+              </div>
+            </Paper>
+         }
       </MuiThemeProvider>
     );
   }

@@ -9,6 +9,7 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 import React, { PropTypes, Component } from 'react';
@@ -34,6 +35,7 @@ export default class TimetableForm extends Component {
     events: [],
     finished: false,
     stepIndex: 0,
+    loading: false
   };
   handleNameChange(event) {
     this.setState({
@@ -126,7 +128,9 @@ export default class TimetableForm extends Component {
       alert('Exam start and revision start cannot be same dates');
       return;
     }
-    console.log('handleSubmit testing');
+    this.setState({
+      loading: true
+    });
     fetch('/timetable/create', {
       method: 'POST',
       headers: {
@@ -154,6 +158,7 @@ export default class TimetableForm extends Component {
         events: newEvents,
         stepIndex: newIndex,
         finished: newIndex > 1,
+        loading: false
       });
     });
   }
@@ -176,9 +181,9 @@ export default class TimetableForm extends Component {
     });
   }
   render() {
-    const {finished, stepIndex, events} = this.state;
+    const {finished, stepIndex, events, loading} = this.state;
     const contentStyle = {margin: '0 16px'};
-    return (<div className={'parent'}>
+    return (<div className={styles.parent}>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Add Configuration</StepLabel>
@@ -203,7 +208,7 @@ export default class TimetableForm extends Component {
           ) : (
             <div>
               {this.getStepContent(stepIndex)}
-              <div className={'buttons'}>
+              <div className={styles.buttons}>
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
@@ -215,6 +220,9 @@ export default class TimetableForm extends Component {
                   primary
                   onTouchTap={stepIndex === 1 ? () => {this.handleCreate();} : this.handleNext}
                 />
+                {loading ?
+                  <CircularProgress size={90} thickness={6} /> :
+                    null}
               </div>
             </div>
           )}
