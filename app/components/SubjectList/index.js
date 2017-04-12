@@ -10,7 +10,7 @@ export default class SubjectList extends React.Component {
       <li key={index}><h4>{subject.name}</h4></li>
     );
     return (
-      <div className={styles.subjectlist}>
+      <div className={'subjectlist'}>
         <h3>Subject List</h3>
         <ul>{listItems}</ul>
       </div>

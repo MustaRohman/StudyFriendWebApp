@@ -98,8 +98,8 @@ export default class  Login extends Component {
     return (
       <MuiThemeProvider>
         {this.state.loading ?
-          <CircularProgress className={styles.login} size={200} thickness={9} /> :
-            <Paper className={styles.login} zDepth={5}>
+          <CircularProgress className={'login'} size={200} thickness={9} /> :
+            <Paper className={'login'} zDepth={5}>
               <div>
                 <h1>StudyFriend</h1>
                 <h2>Dynamic Revision Planner for Amazon Echo</h2>

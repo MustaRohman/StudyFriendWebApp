@@ -12,8 +12,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-import React, { PropTypes, Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import React, { Component } from 'react';
 import moment from 'moment';
 
 import styles from './timetableForm.css';
@@ -91,7 +90,7 @@ export default class TimetableForm extends Component {
 
   getStepContent(stepIndex) {
     const configRender = (
-      <Paper className={styles.paper} zDepth={1}>
+      <Paper className={'paper'} zDepth={1}>
         <Config onNewConfig={(newValues) => {this.handleConfig(newValues);}}
           onSessionDurationChange={(value)  => {this.handleSessionDurationChange(value);}}
           onNameChange={(value) => {this.handleNameChange(value);}}
@@ -112,8 +111,8 @@ export default class TimetableForm extends Component {
       return configRender;
     case 1:
       return (
-        <Paper className={styles.paper} zDepth={1}>
-          <div className={styles.subjects}>
+        <Paper className={'paper'} zDepth={1}>
+          <div className={'subjects'}>
             <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
             <SubjectList subjects={this.state.subjects}/>
           </div>
@@ -183,7 +182,7 @@ export default class TimetableForm extends Component {
   render() {
     const {finished, stepIndex, events, loading} = this.state;
     const contentStyle = {margin: '0 16px'};
-    return (<div className={styles.parent}>
+    return (<div className={'parent'}>
         <Stepper activeStep={stepIndex}>
           <Step>
             <StepLabel>Add Configuration</StepLabel>
@@ -208,7 +207,7 @@ export default class TimetableForm extends Component {
           ) : (
             <div>
               {this.getStepContent(stepIndex)}
-              <div className={styles.buttons}>
+              <div className={'buttons'}>
                 <FlatButton
                   label="Back"
                   disabled={stepIndex === 0}
