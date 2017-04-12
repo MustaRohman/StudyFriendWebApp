@@ -16,7 +16,7 @@ export default class Calendar extends Component {
   }
   render() {
     return (
-      <div className={styles.calendar}>
+      <div className={'calendar'}>
         <BigCalendar
           {...this.props}
           events={this.props.events}
