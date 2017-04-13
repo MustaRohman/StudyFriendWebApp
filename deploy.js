@@ -1,8 +1,6 @@
-// Since postinstall will also run when you run npm install
-// locally we make sure it only runs in production
+// Based on boilerplate code at https://github.com/christianalfoni/webpack-express-boilerplate
+
 if (process.env.NODE_ENV === 'production') {
-  // We basically just create a child process that will run
-  // the production bundle command
   const child_process = require('child_process');
   child_process.exec('webpack -p --config webpack.production.config.js', function(error, stdout, stderr) {
     console.log('stdout: ' + stdout);

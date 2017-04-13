@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+// Based on boilerplate code at https://github.com/christianalfoni/webpack-express-boilerplate
 import path from 'path';
 import webpack from 'webpack';
 import bodyParser from 'body-parser';

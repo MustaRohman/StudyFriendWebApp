@@ -1,3 +1,4 @@
+// Based on boilerplate code at https://github.com/christianalfoni/webpack-express-boilerplate
 'use strict';
 
 const path = require('path');
