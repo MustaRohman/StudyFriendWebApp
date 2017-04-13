@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import styles from './style.css';
 
 
-export default class TopicList extends React.Component {
+export default class TopicDialogButton extends React.Component {
   static propTypes = {
     addTopic: PropTypes.func.isRequired
   }

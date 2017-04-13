@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 import TextField from 'material-ui/TextField';
-import Config from './index';
+import Config from 'app/containers/Config';
 import Datepicker from 'app/components/Datepicker';
 
 describe('<Config />', () => {

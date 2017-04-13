@@ -9,7 +9,7 @@
     "postinstall": "node deploy",
     "start": "babel-node server.js —presets es2015,stage-2",
     "server:watch": "nodemon server.js --exec babel-node --presets es2015,stage-0",
-    "test": "find . -path ./node_modules -prune -o -name '*.test.js' ! -path '*/node_modules/*' | xargs mocha --compilers js:babel-register --require test.setup --timeout 15000"
+    "test": "mocha test/.setup.js test/**/*.test.js --timeout 25000"
   },
   "repository": {
     "type": "git",
