@@ -16,11 +16,12 @@ describe('loading express', function() {
   });
   it('responds to /code', function testPath(done) {
     request(server)
-      .post('/code')
+      .get('/code')
       .set('Content-Type', 'application/json')
       .set('Code', '8db7275d-aedf')
       .end(function(err, res) {
         if (err) return done(err);
+        console.log(res.body);
         done();
       });
   });
