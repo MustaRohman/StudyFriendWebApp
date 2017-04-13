@@ -1,3 +1,4 @@
+// Based on boilerplate code at https://github.com/lelandrichardson/enzyme-example-mocha
 require('babel-register')();
 require ('babel-polyfill');
 const chai = require('chai');
