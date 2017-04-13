@@ -39,6 +39,7 @@ export default class  Login extends Component {
 
 
   async handleLogin(event) {
+    event.preventDefault();
     this.setState({
       loading: true
     });
@@ -52,10 +53,8 @@ export default class  Login extends Component {
       return response.text();
     }).then((text) => {
       if (text === 'true') {
-        console.log('Correct code');
         browserHistory.push('/create');
       } else {
-        console.log('Incorrect code');
         this.setState({
           open: true,
           loading: false
@@ -97,28 +96,28 @@ export default class  Login extends Component {
     ];
     return (
       <MuiThemeProvider>
-        {this.state.loading ?
-          <CircularProgress className={'login'} size={200} thickness={9} /> :
-            <Paper className={'login'} zDepth={5}>
-              <div>
-                <h1>StudyFriend</h1>
-                <h2>Dynamic Revision Planner for Amazon Echo</h2>
-                  <TextField
-                    hintText="Enter Code Here"
-                    underlineStyle={styles2.underlineStyle} value={this.state.code}
-                    onChange={(event) => {this.handleChange(event);}} />
-                  <RaisedButton label="Enter" fullWidth
-                    primary onTouchTap={(event) => {this.handleLogin(event);}}/>
-                  <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}>
-                    Incorrect Code. Please check your Alexa mobile app
-                  </Dialog>
-              </div>
-            </Paper>
-         }
+          <Paper className={'login'} zDepth={5}>
+            <div>
+              <h1>StudyFriend</h1>
+              <h2>Dynamic Revision Planner for Amazon Echo</h2>
+                <TextField
+                  hintText="Enter Code Here"
+                  underlineStyle={styles2.underlineStyle} value={this.state.code}
+                  onChange={(event) => {this.handleChange(event);}} />
+                <RaisedButton label="Enter" fullWidth
+                  primary onTouchTap={(event) => {this.handleLogin(event);}}/>
+                <Dialog
+                  actions={actions}
+                  modal={false}
+                  open={this.state.open}
+                  onRequestClose={this.handleClose}>
+                  Incorrect Code. Please check your Alexa mobile app
+                </Dialog>
+                {this.state.loading ?
+                  <CircularProgress className={'login'} size={70} thickness={6} /> :
+                    null }
+            </div>
+          </Paper>
       </MuiThemeProvider>
     );
   }

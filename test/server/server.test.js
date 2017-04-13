@@ -4,7 +4,7 @@ const timetableOutput = './output.js';
 describe('loading express', function() {
   let server;
   beforeEach(() => {
-    server = require('../server');
+    server = require('../../server');
   });
   afterEach(() => {
     server.close();
@@ -14,15 +14,13 @@ describe('loading express', function() {
     .get('/')
     .expect(200, done);
   });
-  it('responds to /timetable/create', function testPath(done) {
+  it('responds to /code', function testPath(done) {
     request(server)
-      .post('/timetable/create')
-      .send(timetableInput)
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
+      .post('/code')
+      .set('Content-Type', 'application/json')
+      .set('Code', '8db7275d-aedf')
       .end(function(err, res) {
         if (err) return done(err);
-        console.log(res.body);
         done();
       });
   });

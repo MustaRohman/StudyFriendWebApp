@@ -15,7 +15,7 @@ import Paper from 'material-ui/Paper';
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import styles from './timetableForm.css';
+import styles from './style.css';
 
 export default class TimetableForm extends Component {
   constructor(props) {

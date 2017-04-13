@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
-import TimetableForm from './index';
+import TimetableForm from 'app/containers/TimetableForm/';
 import Config from 'app/containers/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
