@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
+import CircularProgress from 'material-ui/CircularProgress';
 import {orange500, blue500} from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -33,10 +34,15 @@ export default class  Login extends Component {
   state = {
     code: '',
     open: false,
+    loading: false
   }
 
 
   async handleLogin(event) {
+    event.preventDefault();
+    this.setState({
+      loading: true
+    });
     fetch('/code', {
       method: 'GET',
       headers: {
@@ -47,12 +53,11 @@ export default class  Login extends Component {
       return response.text();
     }).then((text) => {
       if (text === 'true') {
-        console.log('Correct code');
         browserHistory.push('/create');
       } else {
-        console.log('Incorrect code');
         this.setState({
-          open: true
+          open: true,
+          loading: false
         });
       }
     }).catch((err) => {
@@ -108,8 +113,11 @@ export default class  Login extends Component {
                   onRequestClose={this.handleClose}>
                   Incorrect Code. Please check your Alexa mobile app
                 </Dialog>
+                {this.state.loading ?
+                  <CircularProgress className={'login'} size={70} thickness={6} /> :
+                    null }
             </div>
-           </Paper>
+          </Paper>
       </MuiThemeProvider>
     );
   }

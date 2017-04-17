@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react';
 import TopicDialogButton from 'app/components/TopicDialogButton/';
 import RaisedButton from 'material-ui/RaisedButton';
-import styles from './style.css';
-
 
 export default class AddSubject extends React.Component {
   static propTypes = {

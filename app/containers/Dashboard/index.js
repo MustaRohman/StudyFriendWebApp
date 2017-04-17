@@ -5,7 +5,7 @@ export default class Dashboard extends React.Component {
     return (
       <div>
         <p>Welcome to StudyFriend!</p>
-        <p>Click 'Create' to get started!</p>
+        <p>Click the menu icon and then click 'Create' to get started!</p>
       </div>
     );
   }

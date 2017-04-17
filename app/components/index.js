@@ -39,7 +39,7 @@ export default class Main extends React.Component {
         <div>
           <AppBar
             className={'menubar'}
-            title={<span style={styles.title}>StudyFriend</span>}
+            title={<span style={activeStyle}>StudyFriend</span>}
             onLeftIconButtonTouchTap={(event) => {this.handleTouchTap(event);}}
             iconElementRight={<FlatButton label="Logout" href="/logout" />}
           />

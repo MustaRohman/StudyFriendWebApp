@@ -1,3 +1,4 @@
+// Based on boilerplate code at https://github.com/christianalfoni/webpack-express-boilerplate
 'use strict';
 
 const path = require('path');
@@ -17,6 +18,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new HtmlWebpackPlugin({
       template: 'app/index.tpl.html',
       inject: 'body',
@@ -51,7 +53,7 @@ module.exports = {
       loader: 'json'
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract({fallback: 'style', use: 'css?modules&localIdentName=[name]---[local]---[hash:base64:5]!postcss'})
+      loader: 'style-loader!css-loader'
     }]
   },
   postcss: [

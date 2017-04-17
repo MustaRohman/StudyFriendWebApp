@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import './react-datepicker.css';
 
+// Wrapper Class
+
 export default class Datepicker extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired,

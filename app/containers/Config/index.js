@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import Datepicker from 'app/components/Datepicker/';
 import TextField from 'material-ui/TextField';
-import _ from 'underscore';
 const { number, string, func } = PropTypes;
 
 import styles from './style.css';

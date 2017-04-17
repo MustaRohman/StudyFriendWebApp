@@ -1,4 +1,5 @@
 /* eslint no-console: 0 */
+// Based on boilerplate code at https://github.com/christianalfoni/webpack-express-boilerplate
 import path from 'path';
 import webpack from 'webpack';
 import bodyParser from 'body-parser';
@@ -14,6 +15,7 @@ require('dotenv').config();
 const app = express();
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const { API_URL } = process.env;
+const PORT = process.env.port || 3000;
 
 app.use( cookieParser());
 app.use( bodyParser.json());
@@ -21,9 +23,11 @@ app.use( bodyParser.urlencoded({
   extended: true
 }));
 app.use(session({
-  secret: 'sssshhhshs'
+  secret: 'sssshhhshs',
+  resave: false,
+  saveUninitialized: true,
 }));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   if (!req.session) {
     return next(new Error()); // handle error
   }
@@ -40,12 +44,10 @@ app.get('/code', (req, res) => {
   }).then((response) => {
     return response.text();
   }).then((text) => {
-    console.log('Returning text');
     if (text !== 'Unable to get code') {
       app.locals.userId = text;
       return res.send(true);
     }
-    console.log(text);
     return res.send(false);
   }).catch((err) => {
     console.log(err);
@@ -108,12 +110,12 @@ if (isDeveloping) {
   });
 }
 
-const server = app.listen(3000, (err) => {
+const server = app.listen(process.env.PORT || 3000, (err) => {
   if (err) {
     console.error(err);
   }
 
-  console.log('Listening at http://localhost:3000/');
+  console.log('Listening at ' + PORT);
 });
 
 module.exports = server;

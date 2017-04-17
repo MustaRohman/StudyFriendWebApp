@@ -1,8 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import moment from 'moment';
 
-import AddSubject from './index';
+import AddSubject from 'app/components/AddSubject';
 import TopicDialogButton from 'app/components/TopicDialogButton';
 
 describe('<AddSubject />', () => {

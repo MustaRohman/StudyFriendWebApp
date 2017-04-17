@@ -9,13 +9,13 @@ import {
   StepLabel,
 } from 'material-ui/Stepper';
 import RaisedButton from 'material-ui/RaisedButton';
+import CircularProgress from 'material-ui/CircularProgress';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
-import React, { PropTypes, Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import React, { Component } from 'react';
 import moment from 'moment';
 
-import styles from './timetableForm.css';
+import styles from './style.css';
 
 export default class TimetableForm extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ export default class TimetableForm extends Component {
     events: [],
     finished: false,
     stepIndex: 0,
+    loading: false
   };
   handleNameChange(event) {
     this.setState({
@@ -127,7 +128,13 @@ export default class TimetableForm extends Component {
       alert('Exam start and revision start cannot be same dates');
       return;
     }
-    console.log('handleSubmit testing');
+    if (this.state.subjects.length === 0) {
+      alert('Subject data is empty');
+      return;
+    }
+    this.setState({
+      loading: true
+    });
     fetch('/timetable/create', {
       method: 'POST',
       headers: {
@@ -155,6 +162,7 @@ export default class TimetableForm extends Component {
         events: newEvents,
         stepIndex: newIndex,
         finished: newIndex > 1,
+        loading: false
       });
     });
   }
@@ -192,7 +200,7 @@ export default class TimetableForm extends Component {
   }
 
   render() {
-    const {finished, stepIndex, events} = this.state;
+    const {finished, stepIndex, events, loading} = this.state;
     const contentStyle = {margin: '0 16px'};
     return (<div className={'parent'}>
         <Stepper activeStep={stepIndex}>
@@ -231,6 +239,9 @@ export default class TimetableForm extends Component {
                   primary
                   onTouchTap={stepIndex === 1 ? () => {this.handleCreate();} : this.handleNext}
                 />
+                {loading ?
+                  <CircularProgress size={90} thickness={6} /> :
+                    null}
               </div>
             </div>
           )}
