@@ -10,7 +10,7 @@ module.exports = (json, moment) => {
       parseInt(date[1]) - 1,
       parseInt(date[2]),
       parseInt(startTime.hour),
-      parseInt(startTime.minute),
+      parseInt(startTime.minute)
     );
 
     const temp = {
@@ -34,7 +34,6 @@ module.exports = (json, moment) => {
       temp.end = moment(startDate).add(period.periodDuration, 'm').toDate();
     }
 
-    console.log(temp);
     newEvents.push(temp);
   };
 
@@ -42,6 +41,5 @@ module.exports = (json, moment) => {
     if (!timetable.hasOwnProperty(date)) continue;
     timetable[date].forEach((period) => {parsePeriod(period);});
   }
-  console.log(newEvents);
   return newEvents;
 };

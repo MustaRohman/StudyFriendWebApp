@@ -59,7 +59,7 @@ export default class AddSubject extends React.Component {
                       </label>
                     </div>
                     <TopicDialogButton style={{marginTop: 20}} topics={this.state.topics}
-                      addTopic={(topic) => {this.handleAddTopic(topic);}}
+                      addTopics={(topics) => {this.handleAddTopic(topics);}}
                       />
                   <RaisedButton style={{marginTop: 20}} label="Add Subject" secondary onTouchTap={(event) => {
                     this.handleAddSubject(event);

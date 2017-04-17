@@ -10,7 +10,7 @@ import styles from './style.css';
 
 export default class TopicDialogButton extends React.Component {
   static propTypes = {
-    addTopic: PropTypes.func.isRequired,
+    addTopics: PropTypes.func.isRequired,
     topics: PropTypes.array.isRequired
   }
 
@@ -23,27 +23,49 @@ export default class TopicDialogButton extends React.Component {
     topicList: []
   };
   handleListChange(item) {
+    // function hasItem(name) {
+    //   return item === name;
+    // }
+    // if (this.props.topics.some(hasItem)) {
+    //   return;
+    // }
+    // const newList = this.props.topics.slice();
+    // newList.push(item);
+    // this.props.addTopic(newList);
+
     function hasItem(name) {
       return item === name;
     }
-    if (this.props.topics.some(hasItem)) {
+    if (this.state.topicList.some(hasItem)) {
       return;
     }
-    const newList = this.props.topics.slice();
+    const newList = this.state.topicList.slice();
     newList.push(item);
-    this.props.addTopic(newList);
+    this.setState({
+      topicList: newList
+    });
+
   }
 
   handleItemDelete(item) {
+    console.log("Deleting");
+    console.log(this.state.topicsList);
     const newList = this.state.topicList.slice();
+    // console.log(newList);
     const index = newList.indexOf(item);
     if (index !== -1) {
       newList.splice(index, 1);
     }
+    console.log(newList);
     this.setState({
       topicList: newList
     });
   }
+
+  handleOk = () => {
+    this.props.addTopics(this.state.topicList);
+    this.handleClose();
+  };
 
   handleOpen = () => {
     this.setState({open: true});
@@ -63,10 +85,10 @@ export default class TopicDialogButton extends React.Component {
       <FlatButton
         label="OK"
         primary
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleOk}
       />,
     ];
-    const listItems = this.props.topics.map((name, index) =>
+    const listItems = this.state.topicList.map((name, index) =>
         <ListItem name={name} key={index}
           itemDelete={(item)=> {this.handleItemDelete(item);}}/>
         );
