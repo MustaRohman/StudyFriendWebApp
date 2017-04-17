@@ -127,6 +127,10 @@ export default class TimetableForm extends Component {
       alert('Exam start and revision start cannot be same dates');
       return;
     }
+    if (this.state.subjects.length === 0) {
+      alert('Subject data is empty');
+      return;
+    }
     this.setState({
       loading: true
     });

@@ -14,7 +14,7 @@ import session from 'express-session';
 require('dotenv').config();
 const app = express();
 const isDeveloping = process.env.NODE_ENV !== 'production';
-const API_URL = 'https://study-friend.herokuapp.com/';
+const { API_URL } = process.env;
 const PORT = process.env.port || 3000;
 
 app.use( cookieParser());
@@ -27,7 +27,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   if (!req.session) {
     return next(new Error()); // handle error
   }
@@ -44,12 +44,10 @@ app.get('/code', (req, res) => {
   }).then((response) => {
     return response.text();
   }).then((text) => {
-    console.log('Returning text');
     if (text !== 'Unable to get code') {
       app.locals.userId = text;
       return res.send(true);
     }
-    console.log(text);
     return res.send(false);
   }).catch((err) => {
     console.log(err);

@@ -8,7 +8,8 @@
     "serve": "node dist/server.js",
     "postinstall": "node deploy",
     "start": "babel-node server.js —presets es2015,stage-2",
-    "server:watch": "nodemon server.js --exec babel-node --presets es2015,stage-0",
+    "server:watch:local": "API_URL=http://localhost:4567/ && nodemon server.js --exec babel-node --presets es2015,stage-0",
+    "server:watch:heroku": "API_URL=http://studyfriend-timetable.herokuapp.com/ && nodemon server.js --exec babel-node --presets es2015,stage-0",
     "test": "mocha test/.setup.js test/**/*.test.js --timeout 25000"
   },
   "repository": {
