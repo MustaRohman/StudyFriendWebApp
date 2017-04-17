@@ -14,7 +14,7 @@ import session from 'express-session';
 require('dotenv').config();
 const app = express();
 const isDeveloping = process.env.NODE_ENV !== 'production';
-const  API_URL  = "http://studyfriend-timetable.herokuapp.com/";
+const { API_URL } = process.env;
 const PORT = process.env.port || 3000;
 
 app.use( cookieParser());
