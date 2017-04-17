@@ -5,13 +5,11 @@ import { List } from 'material-ui/List';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import styles from './style.css';
 
 
 export default class TopicDialogButton extends React.Component {
   static propTypes = {
-    addTopic: PropTypes.func.isRequired,
-    topics: PropTypes.array.isRequired
+    addTopic: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -26,11 +24,14 @@ export default class TopicDialogButton extends React.Component {
     function hasItem(name) {
       return item === name;
     }
-    if (this.props.topics.some(hasItem)) {
+    if (this.state.topicList.some(hasItem)) {
       return;
     }
-    const newList = this.props.topics.slice();
+    const newList = this.state.topicList.slice();
     newList.push(item);
+    this.setState({
+      topicList: newList
+    });
     this.props.addTopic(newList);
   }
 
@@ -66,14 +67,14 @@ export default class TopicDialogButton extends React.Component {
         onTouchTap={this.handleClose}
       />,
     ];
-    const listItems = this.props.topics.map((name, index) =>
+    const listItems = this.state.topicList.map((name, index) =>
         <ListItem name={name} key={index}
           itemDelete={(item)=> {this.handleItemDelete(item);}}/>
         );
 
     return (
       <div>
-        <RaisedButton style={{marginTop: 20}} label="Manage Subject Topics" onTouchTap={this.handleOpen} />
+        <RaisedButton label="Manage Topics" onTouchTap={this.handleOpen} />
         <Dialog
           title="Add Topics for Subject"
           actions={actions}

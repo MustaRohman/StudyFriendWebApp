@@ -12,24 +12,32 @@ export default class AddSubject extends React.Component {
     name: '',
     'topic-duration': ''
   }
+
   handleAddTopicDuration(event) {
     event.preventDefault();
     console.log(`Topic Duration: ${parseInt(event.target.value, 10) * 60}`);
     this.setState({'topic-duration': parseInt(event.target.value, 10) * 60});
   }
+
   handleAddName(event) {
     event.preventDefault();
     this.setState({name: event.target.value});
   }
+
   handleAddTopic(newTopics) {
     this.setState({topics: newTopics});
   }
+
   handleAddSubject(event) {
     event.preventDefault();
     if (this.state.topics.length !== 0 && this.state.name && this.state['topic-duration']) {
       this.props.addSubject(this.state);
     }
+    this.setState({
+      topics: []
+    });
   }
+
   render() {
     return (
             <div className={'addsubject'}>
@@ -50,9 +58,9 @@ export default class AddSubject extends React.Component {
                           }} type="number"/>
                       </label>
                     </div>
-                    <TopicDialogButton style={{marginTop: 20}} addTopic={(topic) => {
-                      this.handleAddTopic(topic);
-                    }}/>
+                    <TopicDialogButton style={{marginTop: 20}} topics={this.state.topics}
+                      addTopic={(topic) => {this.handleAddTopic(topic);}}
+                      />
                   <RaisedButton style={{marginTop: 20}} label="Add Subject" secondary onTouchTap={(event) => {
                     this.handleAddSubject(event);
                   }}/>

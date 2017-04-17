@@ -114,7 +114,8 @@ export default class TimetableForm extends Component {
         <Paper className={'paper'} zDepth={1}>
           <div className={'subjects'}>
             <AddSubject addSubject={(event) => {this.handleAddSubject(event);}}/>
-            <SubjectList subjects={this.state.subjects}/>
+            <SubjectList subjects={this.state.subjects}
+              deleteSubject={(event) => {this.handleDeleteSubject(event);}} />
           </div>
       </Paper>
       );
@@ -183,6 +184,21 @@ export default class TimetableForm extends Component {
       subjects: newSubjects
     });
   }
+
+  handleDeleteSubject(item) {
+    const newList = this.state.subjects.slice();
+    const byName = (subject) =>{
+      return subject.name === item;
+    };
+    const index = newList.findIndex(byName);
+    if (index !== -1) {
+      newList.splice(index, 1);
+    }
+    this.setState({
+      subjects: newList
+    });
+  }
+
   render() {
     const {finished, stepIndex, events, loading} = this.state;
     const contentStyle = {margin: '0 16px'};
