@@ -1,6 +1,4 @@
 const request = require('supertest');
-const timetableInput = './input.js';
-const timetableOutput = './output.js';
 describe('loading express', function() {
   let server;
   beforeEach(() => {

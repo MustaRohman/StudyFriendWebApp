@@ -1,14 +1,13 @@
+// based on code from react-big-calendar https://github.com/intljusticemission/react-big-calendar
 import React, {Component, PropTypes} from 'react';
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
-// import events from './events.js';
+
 
 import {} from './react-big-calendar.css';
 import styles from './style.css';
 
-// Setup the localizer by providing the moment (or globalize) Object
-// to the correct localizer.
-BigCalendar.momentLocalizer(moment); // or globalizeLocalizer
+BigCalendar.momentLocalizer(moment);
 
 export default class Calendar extends Component {
   static propTypes = {

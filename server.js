@@ -55,7 +55,7 @@ app.get('/code', (req, res) => {
 });
 
 app.post('/timetable/create', async (req, res) => {
-  console.log('User');
+  console.log(API_URL);
   fetch(`${API_URL}create`, {
     method: 'POST',
     headers: {

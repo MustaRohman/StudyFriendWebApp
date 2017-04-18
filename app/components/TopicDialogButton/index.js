@@ -1,3 +1,4 @@
+// code based on matieral-ui http://www.material-ui.com/#/
 import React, { PropTypes } from 'react';
 import TopicInputField from 'app/components/TopicInputField/';
 import ListItem from 'app/components/ListItem/';
@@ -23,16 +24,6 @@ export default class TopicDialogButton extends React.Component {
     topicList: []
   };
   handleListChange(item) {
-    // function hasItem(name) {
-    //   return item === name;
-    // }
-    // if (this.props.topics.some(hasItem)) {
-    //   return;
-    // }
-    // const newList = this.props.topics.slice();
-    // newList.push(item);
-    // this.props.addTopic(newList);
-
     function hasItem(name) {
       return item === name;
     }
@@ -44,14 +35,11 @@ export default class TopicDialogButton extends React.Component {
     this.setState({
       topicList: newList
     });
-
   }
 
   handleItemDelete(item) {
-    console.log("Deleting");
     console.log(this.state.topicsList);
     const newList = this.state.topicList.slice();
-    // console.log(newList);
     const index = newList.indexOf(item);
     if (index !== -1) {
       newList.splice(index, 1);
