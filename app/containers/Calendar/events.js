@@ -1,3 +1,4 @@
+// based on code from react-big-calendar https://github.com/intljusticemission/react-big-calendar
 export default [
   {
     'title': 'All Day Event',

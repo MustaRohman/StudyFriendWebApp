@@ -1,3 +1,4 @@
+// based on code from material-ui http://www.material-ui.com/#/
 import Config from 'app/containers/Config/';
 import AddSubject from 'app/components/AddSubject/';
 import SubjectList from 'app/components/SubjectList/';
@@ -214,7 +215,7 @@ export default class TimetableForm extends Component {
         <div style={contentStyle}>
           {finished ? (
             <div>
-              <Calendar events={events}/>
+              <Calendar events={this.state.events}/>
               <div style={{marginTop: 12}}>
                 <FlatButton
                   label="Back"

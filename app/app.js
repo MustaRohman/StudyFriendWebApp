@@ -1,3 +1,4 @@
+// based on code from material-ui http://www.material-ui.com/#/
 import React from 'react';
 import ReactDOM from 'react-dom';
 const {Route, Router, IndexRoute, hashHistory, browserHistory} = require('react-router');
@@ -9,15 +10,6 @@ import Login from 'app/components/Login/';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
-
-// COMEPLETE:30 Refactor Config component
-// COMEPLETE:20 GET request to timetable-api
-// COMEPLETE:10 Display JSON response
-// COMEPLETE:0 Display in calendar Component
-// COMPLETE:20 Log in
-// COMPLETE:0 DynamoDB
-// TODO:0 Add ExamStart to events for Calendar
-// COMPLETE:10 Basic Styling
 
 const checkAuthentication = (nextState, replace, callback) => {
   fetch('/user/authenticate', {
@@ -43,9 +35,6 @@ ReactDOM.render(
     <Route path="/" component={Main} onEnter={checkAuthentication} >
       <IndexRoute component={Dashboard} />
       <Route path="create"  component={TimetableForm} />
-      <Route path="list" component={TimetableList}>
-        <Route path=":timetableName"/>
-      </Route>
     </Route>
     <Route path="/login" component={Login}/>
   </Router>,

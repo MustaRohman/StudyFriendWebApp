@@ -1,3 +1,4 @@
+// code based on matieral-ui http://www.material-ui.com/#/
 import React from 'react';
 import { Link } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -19,7 +20,6 @@ export default class Main extends React.Component {
     open: false
   }
   handleTouchTap = (event) => {
-      // This prevents ghost click.
     event.preventDefault();
 
     this.setState({

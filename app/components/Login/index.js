@@ -1,3 +1,4 @@
+// code based on matieral-ui http://www.material-ui.com/#/
 import React, {Component} from 'react';
 import { browserHistory } from 'react-router';
 import Paper from 'material-ui/Paper';
@@ -36,7 +37,6 @@ export default class  Login extends Component {
     open: false,
     loading: false
   }
-
 
   async handleLogin(event) {
     event.preventDefault();

@@ -1,10 +1,10 @@
+// based on code from react-datepicker https://github.com/Hacker0x01/react-datepicker
 import React, { PropTypes } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
 import './react-datepicker.css';
 
-// Wrapper Class
 
 export default class Datepicker extends React.Component {
   static propTypes = {
